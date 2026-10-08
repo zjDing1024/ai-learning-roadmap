@@ -68,11 +68,11 @@
 | 7 | 0.0028159888 | 0.0022142473 | 0.0032732652 | 6.9399290932 |
 | 123 | 0.0031495186 | 0.0022639518 | 0.0019115776 | 7.3263768430 |
 
-同设置 Module 全批次与原手写全批次的参数最大差距，3个种子均为0。小批次和全批次都访问3840个训练样本，但分别更新200次和40次；不把这个结果说成等更新预算或吞吐优势，也不混用首轮200步/学习率0.1的结果。
+同设置 Module 全批次与原手写全批次的参数最大差距，本地3个种子均为0；GitHub Actions 默认种子42为5.55e-17，仍通过既定容差检查，不要求跨环境逐位相等。小批次和全批次都访问3840个训练样本，但分别更新200次和40次；不把这个结果说成等更新预算或吞吐优势，也不混用首轮200步/学习率0.1的结果。
 
 工程设计、复现实验命令与3份原始 JSON 见 [模块化小批次训练](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/minibatch-training.md)。默认种子42由初始训练 MSE 7.805889降至0.003311246。三种子是小型合成数据检查，不代表统计显著性或真实数据泛化。
 
-本增量完整本地检查为152项测试、Ruff检查/格式、pip check、compileall、原始和新增两条CLI；原手写实验与新增训练结果均重新执行并复核重放。新增量远程提交/CI应以本次发布后的 [提交记录](https://github.com/zjDing1024/pytorch-from-zero/commits/main/) 和 [Actions](https://github.com/zjDing1024/pytorch-from-zero/actions) 为准，下面首轮CI成功证据不替代新增量CI。
+本增量完整本地检查为152项测试、Ruff检查/格式、pip check、compileall、原始和新增两条CLI；原手写实验与新增训练结果均重新执行并复核重放。新增量已发布为 [dd0485d52c3adc917cff8b5bb267ac4952dc3c23](https://github.com/zjDing1024/pytorch-from-zero/commit/dd0485d52c3adc917cff8b5bb267ac4952dc3c23)，对应 [CPU checks #37748369295](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37748369295) 已成功完成；本增量有独立远程CI证据。
 
 ## 技术理解
 
@@ -100,6 +100,9 @@
 - 首次成长记录 Commit：[672116e4238a6d5460631b76bd1f8f5b561e9710](https://github.com/zjDing1024/ai-learning-roadmap/commit/672116e4238a6d5460631b76bd1f8f5b561e9710)，已核对 main 与全部 9 个文件的内容哈希。本报告的发布证据补记属于后续独立文档提交。
 - 首次工程 Commit：[00d55e32293ab91456cc0e36f25b02be5455bb6f](https://github.com/zjDing1024/pytorch-from-zero/commit/00d55e32293ab91456cc0e36f25b02be5455bb6f)，已核对 main 与全部 22 个文件的内容哈希。
 - 远程 CI：以上工程提交的 [CPU checks #37745868861](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37745868861) 已成功完成。依赖和项目安装、Ruff 检查/格式、52 项测试及 CLI 的 10 项实验断言全部通过；测试保留 1 条未安装可选 NumPy 的警告。成长仓库未配置工作流，不将“无运行”表述为 CI 通过。
+- 同日模块化工程 Commit：[dd0485d52c3adc917cff8b5bb267ac4952dc3c23](https://github.com/zjDing1024/pytorch-from-zero/commit/dd0485d52c3adc917cff8b5bb267ac4952dc3c23)，原子提交14个变更文件；已核对 main 与全部31个工程文件的Git blob哈希，保留其余文件。
+- 同日成长记录 Commit：[89d08cfe4ce02ddf68a36deb4f7274d1d1798819](https://github.com/zjDing1024/ai-learning-roadmap/commit/89d08cfe4ce02ddf68a36deb4f7274d1d1798819)，原子提交6个变更文件；已核对 main 与全部9个成长记录文件的Git blob哈希。本段远程证据属于随后独立文档补记。
+- 新增量远程 CI：[CPU checks #37748369295](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37748369295)，head SHA与上述模块化工程提交完全一致，结论success。Ubuntu 24.04.5、Python 3.12.15、PyTorch 2.14.1+cpu上依赖/项目安装、Ruff检查、22个Python文件格式检查、152项测试（27.49秒）和两条CLI全部成功。原CLI的10项、新CLI的5项实验断言全部为true；pytest保留1条可选NumPy未安装警告。Actions还报告Node 20弃用并以Node 24执行旧版官方actions及punycode弃用提示，未影响本次结果。
 
 ## 求职价值分析
 
