@@ -8,14 +8,18 @@
 
 1. **起点诊断**：Python 函数/类/类型与测试、Linux 文件/进程、Git 分支/冲突、线性代数与求导、NumPy 向量化。根据自测补缺口，避免重复已掌握内容。
 2. **Tensor / Autograd**：shape、stride、存储共享、广播、链式法则、梯度累加、原地修改。首个增量已实现并运行，个人自测待完成。
-3. **训练核心**：nn.Module、Dataset、DataLoader、Loss、Optimizer、Scheduler、训练/验证模式与小批次统计。已完成Module、Dataset/DataLoader、小批次SGD、模式与尾批加权，保留手写基线并运行三种子对照；个人自测待完成，Scheduler尚未实现。
-4. **工程可靠性**：配置、日志、seed、异常路径、checkpoint恢复、依赖管理、测试和CI；再加入Docker。同日第三增量已加入固定CPU float64仿射实验的完整epoch边界恢复，保存模型、momentum优化器、配置、历史及两个局部Generator；三种子新进程恢复参数差均为0，本地及精确提交远程CI各319项测试与三条CLI通过，已完成公开发布。仅加载可信文件，不支持mid-batch、AMP、GPU、DDP或scheduler；最新完整测试与发布证据见[当日日报](../daily-learning/2026-10-08/README.md)，个人独立恢复能力仍待自测。
+3. **训练核心**：nn.Module、Dataset、DataLoader、Loss、Optimizer、Scheduler、训练/验证模式与小批次统计。已完成Module、Dataset/DataLoader、小批次SGD、模式与尾批加权，保留手写基线并运行三种子对照；个人自测待完成；第四增量手写momentum逐步对照、StepLR顺序/等预算/状态恢复实验已完成独立审查与公开发布，精确工程提交远程679项测试和四条CLI通过，证据见当日日报。
+4. **工程可靠性**：配置、日志、seed、异常路径、checkpoint恢复、依赖管理、测试和CI；再加入Docker。同日第三增量已加入固定CPU float64仿射实验的完整epoch边界恢复，保存模型、momentum优化器、配置、历史及两个局部Generator；三种子新进程恢复参数差均为0，本地及精确提交远程CI各319项测试与三条CLI通过，已完成公开发布。仅加载可信文件，第三增量不支持scheduler，第四增量另加严格StepLR格式；仍不支持mid-batch、AMP、GPU或DDP；最新完整测试与发布证据见[当日日报](../daily-learning/2026-10-08/README.md)，个人独立恢复能力仍待自测。
 5. **数据工具与数学补强**：NumPy/Pandas、划分与泄漏、统计和误差分析；用实际项目问题决定补课深度。
 6. **GPU 与规模化**：CUDA 基础、AMP、正确计时、显存分析、分布式训练。先确认可用环境和成本，不捏造 CPU 环境未测的结果。
 
 主要输出：[pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero)。
 
 阶段门槛：能够独立解释和改写训练循环，排查形状/梯度问题，恢复中断训练，设计公平基线并复现实验。代码能运行、测试覆盖失败路径、README 完整，并有个人独立验证记录。
+
+## 2026-10-09 下一工作入口
+
+Momentum/StepLR增量已提前完成，不重复实施。先检查学习者独立解释/重写证据，再推进公开授权真实数据的选择、固定划分、泄漏检查、简单基线与误差分析；没有个人自测记录时保留“待自测”，不自动升级能力或虚构新实验。
 
 ## 阶段 2：深度学习模型与论文复现
 

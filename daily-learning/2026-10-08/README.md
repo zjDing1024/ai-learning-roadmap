@@ -137,12 +137,39 @@
 - 个人新增技能：等待自测后确认
 - 新增工程证据：模块化小批次训练、torch SGD、模式切换、尾批统计、可复现打乱与三种子对照已运行
 - 新增工程证据：固定CPU实验的epoch边界恢复、三种子新进程等价、状态遗漏反例和319项本地测试；使用torch SGD momentum，尚不等于手写momentum对照或scheduler能力
-- 不足：起点能力与学习时间未知；个人独立理解未验证；手写momentum/Scheduler、真实数据、CUDA等尚未完成
+- 不足：起点能力与学习时间未知；个人独立理解未验证；手写momentum/StepLR工程验证在第四增量继续完成，真实数据、CUDA等尚未完成
 
 ## 下一阶段计划
 
 - 学习：完成梯度、广播、布局、Module/DataLoader和checkpoint独立自测；解释尾批加权、优化器缓冲、RNG与失败恢复边界
 - 本阶段已完成：checkpoint本地验证、独立审查、公开发布与精确提交远程CI通过；保留前两阶段及新增原始证据
-- 下一工程增量：从方程手写momentum SGD，逐步核对torch参数/缓冲，再加入scheduler调用顺序和状态恢复实验
+- 第四工程增量已完成：方程手写momentum SGD、torch参数/缓冲逐步核对、StepLR调用顺序和状态恢复实验；已独立审查、发布与精确提交远程CI通过，详细证据见下方
+- 2026-10-09计划已前移：不重复实现已完成的momentum/StepLR；先检查独立自测，再选择公开授权真实数据、固定划分与泄漏检查，建立误差分析。候选数据和后续实验尚未执行
 - 原因：先理解并验证训练状态，再扩展更新规则和学习率策略；不为增加仓库数量跳级
 - 完成门槛：手写/torch逐步等价、scheduler恢复状态明确、训练预算可比；个人能力仍以独立自测为准
+
+## 2026-10-08 第四增量：Momentum / StepLR
+
+手写CPU float64 momentum SGD已与torch按六组配置、六步、两个参数逐步核对；最大参数/buffer误差1.11e-16/2.22e-16。StepLR每轮在optimizer更新之后调用，独立CLI保存/校验scheduler与当前LR；种子42/7/123的新进程40轮对7+33轮恢复参数差均0，各24项断言通过。
+
+公平预算均为200次更新、3840次样本访问。测试MSE（StepLR/固定LR）：42为0.004408268/0.004360109，7为0.003279841/0.003395952，123为0.001914461/0.001906621。没有一致胜者，不用合成数据小差异宣称策略普遍更优。验证负对照包括重置scheduler、遗漏momentum与重置shuffle；整周期切点的scheduler重置可能保留LR相位，这一例外也有测试。
+
+[实现与协议](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/scheduler-recovery.md)、[手写推导](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/momentum-sgd.md)、[原始42](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-08-scheduler-cpu.json)/[7](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-08-scheduler-seed7.json)/[123](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-08-scheduler-seed123.json)。本增量679项本地测试、全新环境独立审查、Ruff/39文件格式、pip check、compileall和四条CLI已通过；清单核对及公开发布已完成。[工程提交2ac5b1b](https://github.com/zjDing1024/pytorch-from-zero/commit/2ac5b1b7f4aa1fce36557b09ec85ce8e837cbdd8)的[CPU checks #37785797239](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37785797239)成功；补记发布证据后的[最终工程提交c3b8893](https://github.com/zjDing1024/pytorch-from-zero/commit/c3b889348cd3bbf5588d08c67bff2e372e29df99)对应[CPU checks #37786698045](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37786698045)也已成功，远程均通过679项测试与四条CLI。助理完成工程验证不等于学习者已经独立掌握。
+
+### 第四增量关键理解与边界
+
+- buffer保存未乘LR的方向，首次梯度不受dampening影响；None梯度跳过更新，零梯度仍可通过momentum/weight decay产生变化。
+- lr_used属于刚完成的一轮，next_lr属于下一轮；StepLR的构造状态不等于已经训练了一轮。
+- 加载时先构造scheduler，再恢复scheduler/optimizer；必须在下一次更新之前恢复当前LR和相位。
+- 新格式验证scheduler完整state_dict、optimizer initial_lr/current_lr及LR历史，旧checkpoint协议和全部旧原始JSON保留。
+- 未覆盖任意scheduler、多参数组、手写优化器checkpoint、mid-batch、GPU、AMP或DDP。checksum不证明来源，只加载可信文件。
+
+### 第四增量 GitHub 状态
+
+[工程提交2ac5b1b](https://github.com/zjDing1024/pytorch-from-zero/commit/2ac5b1b7f4aa1fce36557b09ec85ce8e837cbdd8)已发布，精确SHA为2ac5b1b7f4aa1fce36557b09ec85ce8e837cbdd8，[CPU checks #37785797239](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37785797239)成功。随后仅补写3个文档中的独立审查/发布证据和后续计划，[最终工程提交c3b8893](https://github.com/zjDing1024/pytorch-from-zero/commit/c3b889348cd3bbf5588d08c67bff2e372e29df99)的完整SHA为c3b889348cd3bbf5588d08c67bff2e372e29df99，其[CPU checks #37786698045](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37786698045)也已成功。两次远程CI均通过679项测试、Ruff和四条CLI。
+
+工程最终54个文件逐一核对Git blob；原有27个源码/测试/原始结果文件保持字节不变，三份正式scheduler原始JSON未被发布补记覆盖。初始远程基线为工程360fe210ef7397988bcf4b6e936e1ce8c700249a、成长记录49e7dfd7765c380ea1d58309ca6246c987fd268b。成长仓库更新7个文档，保留其余2个，未使用强制推送。
+
+### 第四增量聚合验证
+
+本地最终pytest679项通过（225.39秒，1条可选NumPy警告）：原319项保持，加momentum82项、StepLR恢复236项、scheduler CLI42项。Ruff检查/39文件格式、pip check、compileall和四条CLI通过；旧三条CLI断言分别10/5/15项，新scheduler三种子各24项通过。实际237→240轮回归发现并修复后期LR极小导致负对照假失败的问题：正式报告显式区分请求恢复切点与单独早期诊断切点。完整细节见[本次验证记录](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-08-scheduler-verification.md)。全新隔离环境独立审查另跑679项测试通过（222.88秒），补充76组momentum配置、40组调度配置/切点、种子919多切点新进程、未见种子887及9999→10000上限恢复；种子42正式结果除时间/PID外完整复现。独立审查无遗留阻塞，公开发布和两次精确工程提交远程CI均已完成。
