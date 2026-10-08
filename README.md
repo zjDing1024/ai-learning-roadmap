@@ -30,12 +30,14 @@
 
 | 项目 | 当前内容 | 验证边界 |
 |---|---|---|
-| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | 张量布局、Autograd、解析/数值梯度、合成回归训练与测试 | CPU 实测；用户自测待完成；首个工程增量 |
+| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | 张量布局、Autograd、解析/数值梯度、nn.Module、Dataset/DataLoader、小批次SGD与基线对照 | CPU三种子实测；152项测试；用户自测待完成 |
 
 成长仓库保存路线、研究与总结；能独立运行、有完整结构或可持续扩展的项目放入独立仓库。后续候选包括模型实现、论文复现、RAG 和 Agent 系统，达到阶段门槛后再创建。
 
-## 当前首个增量
+## 当前工程进度
 
-2026-10-08：完成原始可运行 PyTorch 实验、自动化测试与官方源码研究。详细数值、文件与验证命令见当日日报。代码与学习记录由 AI 助理协助准备，结论限定在实际检查范围内。
+2026-10-08：完成原始可运行 PyTorch 实验、自动化测试与官方源码研究；同日加入 nn.Module、Dataset/DataLoader 和小批次训练，保留原手写基线。详细数值、文件与验证命令见当日日报。代码与学习记录由 AI 助理协助准备，结论限定在实际检查范围内。
 
 2026-10-08 的记录描述本地已执行工作。远程变化以 [提交记录](https://github.com/zjDing1024/ai-learning-roadmap/commits/main/) 和项目 [Actions](https://github.com/zjDing1024/pytorch-from-zero/actions) 为准；本地测试不替代远程 CI 证据。
+
+下一步：独立自测与可信checkpoint恢复。Module/DataLoader工程实现已完成，不将其等同于学习者已掌握；Scheduler、GPU和分布式仍待后续验证。
