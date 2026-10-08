@@ -86,7 +86,7 @@
 
 种子7/123使用相同40轮/分段7轮配置也各通过15项断言，恢复参数差均为0；训练/验证/测试MSE分别为0.0028570668/0.0022004279/0.0033959516和0.0031506270/0.0022858665/0.0019066210。遗漏momentum/重置shuffle的下一轮参数差，种子7为0.0191405113/0.0048320308，种子123为0.0481323629/0.0065692380。两份原始证据为 `results/2026-10-08-checkpoint-seed7.json` 与 `results/2026-10-08-checkpoint-seed123.json`。这仍是小型合成数据的恢复检验，不构成momentum普遍更优或统计显著性的结论。
 
-本地完整pytest319项通过，耗时77.76秒：原152项保持，加checkpoint契约151项、CLI16项。Ruff检查/29文件格式检查、pip check、compileall和原始/小批次/checkpoint三条CLI通过。独立审查执行了fsync失败注入与真实三进程同路径写入竞争；最终代码的独立复跑319项测试通过（78.55秒），lint/29文件格式、pip check、compileall和种子42精确重放也通过。checkpoint与可选JSON各自原子保存，不构成两文件事务；报告失败可能留下已成功保存的checkpoint。最终文档/清单验收与发布、提交与远程CI待核对，不借用前两阶段成功作为本阶段证据。详细设计见[checkpoint 文档](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/checkpoint-recovery.md)；该链接对应的新文件发布状态仍待核对。
+本地完整pytest319项通过，耗时77.76秒：原152项保持，加checkpoint契约151项、CLI16项。Ruff检查/29文件格式检查、pip check、compileall和原始/小批次/checkpoint三条CLI通过。独立审查执行了fsync失败注入与真实三进程同路径写入竞争；最终代码的独立复跑319项测试通过（78.55秒），lint/29文件格式、pip check、compileall和种子42精确重放也通过。checkpoint与可选JSON各自原子保存，不构成两文件事务；报告失败可能留下已成功保存的checkpoint。最终文档/清单验收与公开发布已完成，精确提交远程CI319项测试及三条CLI通过，真实链接见下方“GitHub变化”。详细设计见[checkpoint 文档](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/checkpoint-recovery.md)；该文件已在上述实现提交中发布。
 
 ## 技术理解
 
@@ -109,7 +109,7 @@
 
 初始运行环境缺少 PyTorch，已从官方 CPU 源安装并验证。独立审查发现超大学习率可能让有限输入的损失溢出；已显式拒绝非有限损失并增加三个回归测试。临时依赖快照不是完整锁文件，最终采用固定顶层版本并明确边界，未提交本地绝对安装路径。
 
-同日恢复增量的独立审查发现：仅冻结配置dataclass仍允许替换trainer的公开config引用，可能使旧loader状态与新配置元数据不一致。已改为只读属性并增加回归测试；修改后完整聚合319项测试通过；最终文档/清单验收及发布另行核对。
+同日恢复增量的独立审查发现：仅冻结配置dataclass仍允许替换trainer的公开config引用，可能使旧loader状态与新配置元数据不一致。已改为只读属性并增加回归测试；修改后完整聚合319项测试通过；最终文档/清单已通过独立审查并公开发布，精确提交远程CI通过。
 
 ## GitHub 变化
 
@@ -121,6 +121,9 @@
 - 同日模块化工程 Commit：[dd0485d52c3adc917cff8b5bb267ac4952dc3c23](https://github.com/zjDing1024/pytorch-from-zero/commit/dd0485d52c3adc917cff8b5bb267ac4952dc3c23)，原子提交14个变更文件；已核对 main 与全部31个工程文件的Git blob哈希，保留其余文件。
 - 同日成长记录 Commit：[89d08cfe4ce02ddf68a36deb4f7274d1d1798819](https://github.com/zjDing1024/ai-learning-roadmap/commit/89d08cfe4ce02ddf68a36deb4f7274d1d1798819)，原子提交6个变更文件；已核对 main 与全部9个成长记录文件的Git blob哈希。本段远程证据属于随后独立文档补记。
 - 新增量远程 CI：[CPU checks #37748369295](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37748369295)，head SHA与上述模块化工程提交完全一致，结论success。Ubuntu 24.04.5、Python 3.12.15、PyTorch 2.14.1+cpu上依赖/项目安装、Ruff检查、22个Python文件格式检查、152项测试（27.49秒）和两条CLI全部成功。原CLI的10项、新CLI的5项实验断言全部为true；pytest保留1条可选NumPy未安装警告。Actions还报告Node 20弃用并以Node 24执行旧版官方actions及punycode弃用提示，未影响本次结果。
+- 同日恢复工程 Commit：[9a5707696c064523ee95bcaddb49ab1f07dc4467](https://github.com/zjDing1024/pytorch-from-zero/commit/9a5707696c064523ee95bcaddb49ab1f07dc4467)，15个文件原子更新，全部41个工程文件内容哈希核对一致，26个未改文件保留。
+- 同日恢复成长记录 Commit：[3c5d905cd2c99c57e99abb7ab48ed3d663faebc8](https://github.com/zjDing1024/ai-learning-roadmap/commit/3c5d905cd2c99c57e99abb7ab48ed3d663faebc8)，6个文件原子更新，全部9个成长记录文件内容哈希核对一致，3个未改文件保留。本段为随后独立文档补记。
+- 恢复增量远程 CI：[CPU checks #37751219715](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37751219715)，head SHA与上述恢复工程提交完全一致，结论success。Ubuntu 24.04.5、Python 3.12.15、PyTorch 2.14.1+cpu上依赖/项目安装、Ruff检查/29文件格式、319项测试（60.83秒）和三条CLI成功；断言分别10/5/15项全部为true。保留1条可选NumPy未安装警告及官方Actions弃用提示。成长仓库无工作流，不宣称其CI通过。
 
 ## 求职价值分析
 
@@ -134,12 +137,12 @@
 - 个人新增技能：等待自测后确认
 - 新增工程证据：模块化小批次训练、torch SGD、模式切换、尾批统计、可复现打乱与三种子对照已运行
 - 新增工程证据：固定CPU实验的epoch边界恢复、三种子新进程等价、状态遗漏反例和319项本地测试；使用torch SGD momentum，尚不等于手写momentum对照或scheduler能力
-- 不足：起点能力与学习时间未知；个人独立理解未验证；本恢复增量最终文档/清单验收与发布及远程CI待核对；手写momentum/Scheduler、真实数据、CUDA等尚未完成
+- 不足：起点能力与学习时间未知；个人独立理解未验证；手写momentum/Scheduler、真实数据、CUDA等尚未完成
 
 ## 下一阶段计划
 
 - 学习：完成梯度、广播、布局、Module/DataLoader和checkpoint独立自测；解释尾批加权、优化器缓冲、RNG与失败恢复边界
-- 当前阶段收尾：checkpoint本地验证与独立测试复跑完成，核对最终文档/清单验收与发布和该增量远程CI；保留前两阶段及新增原始证据
+- 本阶段已完成：checkpoint本地验证、独立审查、公开发布与精确提交远程CI通过；保留前两阶段及新增原始证据
 - 下一工程增量：从方程手写momentum SGD，逐步核对torch参数/缓冲，再加入scheduler调用顺序和状态恢复实验
 - 原因：先理解并验证训练状态，再扩展更新规则和学习率策略；不为增加仓库数量跳级
 - 完成门槛：手写/torch逐步等价、scheduler恢复状态明确、训练预算可比；个人能力仍以独立自测为准
