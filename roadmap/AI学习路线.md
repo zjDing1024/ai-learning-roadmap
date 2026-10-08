@@ -9,7 +9,7 @@
 1. **起点诊断**：Python 函数/类/类型与测试、Linux 文件/进程、Git 分支/冲突、线性代数与求导、NumPy 向量化。根据自测补缺口，避免重复已掌握内容。
 2. **Tensor / Autograd**：shape、stride、存储共享、广播、链式法则、梯度累加、原地修改。首个增量已实现并运行，个人自测待完成。
 3. **训练核心**：nn.Module、Dataset、DataLoader、Loss、Optimizer、Scheduler、训练/验证模式与小批次统计。已完成Module、Dataset/DataLoader、小批次SGD、模式与尾批加权，保留手写基线并运行三种子对照；个人自测待完成，Scheduler尚未实现。
-4. **工程可靠性**：配置、日志、seed、异常路径、checkpoint 恢复、依赖管理、测试和 CI；再加入 Docker。
+4. **工程可靠性**：配置、日志、seed、异常路径、checkpoint恢复、依赖管理、测试和CI；再加入Docker。同日第三增量已加入固定CPU float64仿射实验的完整epoch边界恢复，保存模型、momentum优化器、配置、历史及两个局部Generator；三种子新进程恢复参数差均为0，319项本地测试及三条CLI通过。仅加载可信文件，不支持mid-batch、AMP、GPU、DDP或scheduler；最新完整测试与发布证据见[当日日报](../daily-learning/2026-10-08/README.md)，个人独立恢复能力仍待自测。
 5. **数据工具与数学补强**：NumPy/Pandas、划分与泄漏、统计和误差分析；用实际项目问题决定补课深度。
 6. **GPU 与规模化**：CUDA 基础、AMP、正确计时、显存分析、分布式训练。先确认可用环境和成本，不捏造 CPU 环境未测的结果。
 

@@ -30,14 +30,14 @@
 
 | 项目 | 当前内容 | 验证边界 |
 |---|---|---|
-| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | 张量布局、Autograd、解析/数值梯度、nn.Module、Dataset/DataLoader、小批次SGD与基线对照 | CPU三种子实测；152项测试；用户自测待完成 |
+| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | 张量/梯度、Module/DataLoader、小批次SGD、epoch边界checkpoint与momentum恢复 | 本地319项测试及恢复三种子实验通过；该增量发布/远程CI待核对；个人自测待完成 |
 
 成长仓库保存路线、研究与总结；能独立运行、有完整结构或可持续扩展的项目放入独立仓库。后续候选包括模型实现、论文复现、RAG 和 Agent 系统，达到阶段门槛后再创建。
 
 ## 当前工程进度
 
-2026-10-08：完成原始可运行 PyTorch 实验、自动化测试与官方源码研究；同日加入 nn.Module、Dataset/DataLoader 和小批次训练，保留原手写基线。详细数值、文件与验证命令见当日日报。代码与学习记录由 AI 助理协助准备，结论限定在实际检查范围内。
+2026-10-08：完成原始 PyTorch 实验、自动化测试、官方源码研究及同日 Module/DataLoader 小批次增量，保留原手写基线。今天继续加入checkpoint：恢复模型、momentum优化器、配置、历史与局部随机状态；种子42/7/123新进程实验各15项断言通过、恢复参数差0，完整本地319项测试及三条CLI通过。详细数值、文件与命令见当日日报。代码与记录由 AI 助理准备，结论限定在实际检查范围内。
 
 2026-10-08 的记录描述本地已执行工作。远程变化以 [提交记录](https://github.com/zjDing1024/ai-learning-roadmap/commits/main/) 和项目 [Actions](https://github.com/zjDing1024/pytorch-from-zero/actions) 为准；本地测试不替代远程 CI 证据。
 
-下一步：独立自测与可信checkpoint恢复。Module/DataLoader工程实现已完成，不将其等同于学习者已掌握；Scheduler、GPU和分布式仍待后续验证。
+当前阶段：epoch边界checkpoint已完成本地验证，最终文档/清单验收与发布和远程CI待核对。下一阶段：独立自测、手写momentum SGD等价对照与scheduler顺序/状态实验。助理工程产物不等同于学习者已掌握；GPU和分布式仍待后续验证。

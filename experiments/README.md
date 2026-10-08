@@ -19,3 +19,16 @@
 - [完整比较协议与复现命令](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/minibatch-training.md)
 - 质量：新增100项、合计152项本地测试通过；原始全批次源码、CLI和证据保留
 - 边界：按相同数据遍历次数比较，更新次数不同；无吞吐结论；CPU合成数据；学习者自测仍待完成
+
+## 2026-10-08：Epoch 边界 checkpoint 恢复（本地验证完成）
+
+- 范围：固定96/32/32合成数据、CPU float64、3→1模型、torch SGD momentum0.8、num_workers=0；epoch0或完整epoch边界
+- 保存内容：模型、完整优化器、配置、数据指纹、完成轮数/历史、训练和指标Generator、精确PyTorch版本、内容checksum
+- 已执行比较：种子42/7/123分别在新进程连续40轮，对照7轮保存后新进程恢复到40轮；模型/优化器/RNG/历史/结果均一致，每种子15项断言通过
+- 已执行反例：三个种子的丢失momentum与重置shuffle均造成下一轮轨迹差异；严格加载的坏格式/版本/张量/历史测试纳入聚合检查
+- [恢复协议与运行入口](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/checkpoint-recovery.md)：当前实现、三种子实验和319项本地测试通过，远程发布与CI尚待核对
+- 已执行：种子42的15项断言通过，连续/恢复参数差0；测试MSE0.0043601093；下一轮遗漏momentum/重置shuffle参数差0.0144504611/0.0036747311，见工程 `results/2026-10-08-checkpoint-cpu.json`
+- 其他原始记录：工程 `results/2026-10-08-checkpoint-seed7.json`、`results/2026-10-08-checkpoint-seed123.json`
+- 本地质量：319项测试（152原有+151checkpoint契约+16CLI）、Ruff/29文件格式、pip check、compileall及三条CLI通过
+- 当前证据状态：最终文档/清单验收与发布及远程CI待核对；前两阶段原始结果不覆盖
+- 边界：只加载可信文件；受限加载与文件上限不是安全沙箱，checksum不认证来源；Linux本地原子可见性不保证断电持久性；无mid-batch、GPU、AMP、DDP、scheduler；学习者自测待完成

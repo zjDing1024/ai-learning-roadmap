@@ -6,7 +6,7 @@
 
 ## 今日学习主题
 
-阶段 1：Tensor 的 shape/stride 与存储共享、广播反向、Autograd 累加、MSE 梯度推导、可复现训练与输入边界；同日继续完成 nn.Module、Dataset/DataLoader 和小批次 SGD。
+阶段 1：Tensor 的 shape/stride 与存储共享、广播反向、Autograd 累加、MSE 梯度推导、可复现训练与输入边界；同日完成 Module/DataLoader 小批次 SGD，并完成epoch边界checkpoint恢复的三种子实验与319项本地测试。
 
 ## 今日研究项目
 
@@ -74,6 +74,20 @@
 
 本增量完整本地检查为152项测试、Ruff检查/格式、pip check、compileall、原始和新增两条CLI；原手写实验与新增训练结果均重新执行并复核重放。新增量已发布为 [dd0485d52c3adc917cff8b5bb267ac4952dc3c23](https://github.com/zjDing1024/pytorch-from-zero/commit/dd0485d52c3adc917cff8b5bb267ac4952dc3c23)，对应 [CPU checks #37748369295](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37748369295) 已成功完成；本增量有独立远程CI证据。
 
+### 同日第三增量：epoch 边界 checkpoint 恢复（本地验证完成）
+
+核心实现已加入固定CPU float64、3→1仿射模型的恢复实验。默认96/32/32划分、batch20、学习率0.05、momentum0.8；仅支持单进程DataLoader（num_workers=0） 和 epoch 0/完整 epoch 边界。保存模型、完整优化器 momentum buffer、配置、数据指纹、完整历史及训练/指标 Generator 状态；新进程加载后继续到累计目标轮数。
+
+验收协议：连续40轮与“7轮后保存、新进程恢复到40轮”逐项比较；另以丢失 momentum、重置 shuffle 为负对照。严格检查 schema、精确 PyTorch 版本、配置、张量/历史/RNG 与内容 checksum；返回新的 trainer，不部分覆盖原对象。保存使用同目录临时文件和 hard-link no-clobber；Linux 本地文件系统原子可见性不等于断电持久性。
+
+安全和支持边界：仅加载自有/可信文件，显式 `weights_only=True`/CPU，无不安全回退；8 MiB与10,000轮上限不是不可信输入安全沙箱，checksum不是身份认证。不支持 mid-batch、AMP、GPU、DDP、scheduler 或任意架构。失败 epoch 不可保存，从上一有效 checkpoint 恢复。
+
+已执行种子42的新进程实验：连续/恢复参数最大差距0，模型、优化器、局部RNG、完整历史、报告和内容checksum相同，15项断言通过。训练/验证/测试MSE为0.0033463182/0.0028868156/0.0043601093。epoch7 checkpoint为14,037字节；从第7轮到第8轮的负对照，遗漏momentum、重置shuffle的参数最大差分别为0.0144504611、0.0036747311。原始证据为工程仓库 `results/2026-10-08-checkpoint-cpu.json`。
+
+种子7/123使用相同40轮/分段7轮配置也各通过15项断言，恢复参数差均为0；训练/验证/测试MSE分别为0.0028570668/0.0022004279/0.0033959516和0.0031506270/0.0022858665/0.0019066210。遗漏momentum/重置shuffle的下一轮参数差，种子7为0.0191405113/0.0048320308，种子123为0.0481323629/0.0065692380。两份原始证据为 `results/2026-10-08-checkpoint-seed7.json` 与 `results/2026-10-08-checkpoint-seed123.json`。这仍是小型合成数据的恢复检验，不构成momentum普遍更优或统计显著性的结论。
+
+本地完整pytest319项通过，耗时77.76秒：原152项保持，加checkpoint契约151项、CLI16项。Ruff检查/29文件格式检查、pip check、compileall和原始/小批次/checkpoint三条CLI通过。独立审查执行了fsync失败注入与真实三进程同路径写入竞争；最终代码的独立复跑319项测试通过（78.55秒），lint/29文件格式、pip check、compileall和种子42精确重放也通过。checkpoint与可选JSON各自原子保存，不构成两文件事务；报告失败可能留下已成功保存的checkpoint。最终文档/清单验收与发布、提交与远程CI待核对，不借用前两阶段成功作为本阶段证据。详细设计见[checkpoint 文档](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/checkpoint-recovery.md)；该链接对应的新文件发布状态仍待核对。
+
 ## 技术理解
 
 ### 今天真正掌握
@@ -88,10 +102,14 @@
 - nn.Parameter 使模型参数可被 Module/优化器发现；单层零初始化不能推广到深层网络。
 - `eval()` 与 `no_grad()` 职责不同；不等长 batch 的 MSE 不能直接平均。
 - DataLoader 的评估迭代也会消耗 base seed，需要局部 Generator；指标 loader 不应推进训练 shuffle 状态。
+- 当前受限CPU实验中，恢复模型、momentum、配置/历史及两个Generator后，新进程轨迹与连续运行一致；只保留seed或模型权重会遗漏关键状态。
+- checksum核对内容一致性，不证明文件来源；weights-only加载仍须遵守可信来源和资源风险边界。
 
 ### 遇到的问题与修复
 
 初始运行环境缺少 PyTorch，已从官方 CPU 源安装并验证。独立审查发现超大学习率可能让有限输入的损失溢出；已显式拒绝非有限损失并增加三个回归测试。临时依赖快照不是完整锁文件，最终采用固定顶层版本并明确边界，未提交本地绝对安装路径。
+
+同日恢复增量的独立审查发现：仅冻结配置dataclass仍允许替换trainer的公开config引用，可能使旧loader状态与新配置元数据不一致。已改为只读属性并增加回归测试；修改后完整聚合319项测试通过；最终文档/清单验收及发布另行核对。
 
 ## GitHub 变化
 
@@ -108,18 +126,20 @@
 
 - 对应岗位：AI/ML/Deep Learning Engineer 的基础工程部分
 - 体现材料：数学与实现对照、可失败测试、数据隔离、原始证据与诚实局限说明
-- 当前限制：仅小型合成线性问题，无生产数据、GPU、部署、恢复或真实性能评估；不能单凭本增量证明岗位胜任力
+- 当前限制：仅小型合成线性问题；checkpoint仅覆盖固定CPU模型及完整epoch边界；无生产数据、GPU、部署或真实性能评估，不能单凭这些增量证明岗位胜任力
 
 ## 当前能力变化
 
 - 新增工程证据：有一个能独立运行和复核的 PyTorch 基础实验项目
 - 个人新增技能：等待自测后确认
 - 新增工程证据：模块化小批次训练、torch SGD、模式切换、尾批统计、可复现打乱与三种子对照已运行
-- 不足：起点能力与学习时间未知；个人独立理解未验证；momentum/Scheduler、checkpoint恢复、真实数据、CUDA 等尚未完成
+- 新增工程证据：固定CPU实验的epoch边界恢复、三种子新进程等价、状态遗漏反例和319项本地测试；使用torch SGD momentum，尚不等于手写momentum对照或scheduler能力
+- 不足：起点能力与学习时间未知；个人独立理解未验证；本恢复增量最终文档/清单验收与发布及远程CI待核对；手写momentum/Scheduler、真实数据、CUDA等尚未完成
 
-## 明日计划
+## 下一阶段计划
 
-- 学习：完成梯度、广播、布局及新增 Module/Dataset/小批次自测，独立重写一轮训练并解释尾批加权
-- 工程：下一增量聚焦 checkpoint 的模型、优化器、配置与随机状态保存/恢复；当前未实现，不提前记作完成
-- 原因：全批次到小批次的行为对照已建立，下一步需要验证中断后的训练轨迹可恢复
-- 完成门槛：恢复后与未中断运行在同环境保持可比轨迹，覆盖损坏/不兼容checkpoint与可信加载边界；个人能力仍以独立自测为准
+- 学习：完成梯度、广播、布局、Module/DataLoader和checkpoint独立自测；解释尾批加权、优化器缓冲、RNG与失败恢复边界
+- 当前阶段收尾：checkpoint本地验证与独立测试复跑完成，核对最终文档/清单验收与发布和该增量远程CI；保留前两阶段及新增原始证据
+- 下一工程增量：从方程手写momentum SGD，逐步核对torch参数/缓冲，再加入scheduler调用顺序和状态恢复实验
+- 原因：先理解并验证训练状态，再扩展更新规则和学习率策略；不为增加仓库数量跳级
+- 完成门槛：手写/torch逐步等价、scheduler恢复状态明确、训练预算可比；个人能力仍以独立自测为准
