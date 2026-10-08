@@ -1,6 +1,6 @@
 # AI Engineer Daily Report
 
-日期：2026-10-08 UTC。
+日期：2026-10-08，Asia/Kuala_Lumpur（UTC+08:00；本次执行对应 UTC 日期同为 2026-10-08）。
 
 执行方式：AI 助理准备与验证工程材料；个人掌握程度尚待学习者独立自测。
 
@@ -75,8 +75,9 @@ pytest 52 项、ruff 检查/格式、pip check、完整 CLI 通过。独立复�
 
 - 新增公开仓库：ai-learning-roadmap、pytorch-from-zero
 - 新增文件：上述成长记录与可运行工程文件
-- Commit：本报告不预填尚未确认的远程 SHA。发布后的实际变更分别以 [成长仓库提交记录](https://github.com/zjDing1024/ai-learning-roadmap/commits/main/) 和 [工程提交记录](https://github.com/zjDing1024/pytorch-from-zero/commits/main/) 为准
-- CI：已准备工作流；远程执行状态以工程 Actions 为准
+- 首次成长记录 Commit：[672116e4238a6d5460631b76bd1f8f5b561e9710](https://github.com/zjDing1024/ai-learning-roadmap/commit/672116e4238a6d5460631b76bd1f8f5b561e9710)，已核对 main 与全部 9 个文件的内容哈希。本报告的发布证据补记属于后续独立文档提交。
+- 首次工程 Commit：[00d55e32293ab91456cc0e36f25b02be5455bb6f](https://github.com/zjDing1024/pytorch-from-zero/commit/00d55e32293ab91456cc0e36f25b02be5455bb6f)，已核对 main 与全部 22 个文件的内容哈希。
+- 远程 CI：以上工程提交的 [CPU checks #37745868861](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37745868861) 已成功完成。依赖和项目安装、Ruff 检查/格式、52 项测试及 CLI 的 10 项实验断言全部通过；测试保留 1 条未安装可选 NumPy 的警告。成长仓库未配置工作流，不将“无运行”表述为 CI 通过。
 
 ## 求职价值分析
 
