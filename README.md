@@ -21,6 +21,7 @@
 - [AI 学习路线](roadmap/AI学习路线.md)
 - [技能成长地图](roadmap/技能成长地图.md)
 - [当前能力分析](skills/当前能力分析.md)
+- [2026-10-09 每日报告](daily-learning/2026-10-09/README.md)
 - [2026-10-08 每日报告](daily-learning/2026-10-08/README.md)
 - [PyTorch 源码阅读](notes/深度学习笔记/2026-10-08-pytorch-source.md)
 - [实验索引](experiments/README.md)
@@ -30,7 +31,7 @@
 
 | 项目 | 当前内容 | 验证边界 |
 |---|---|---|
-| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | 张量/梯度、Module/DataLoader、checkpoint、手写momentum与StepLR恢复 | 第四增量已完成独立审查、发布与精确提交远程679项测试/四条CLI；个人自测待完成 |
+| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | 张量/梯度、模块化训练、恢复/调度、Wine真实数据分类 | 第五增量已独立审查/公开发布，精确工程提交远程709项测试/五条CLI通过，证据见新日报；个人自测待完成 |
 
 成长仓库保存路线、研究与总结；能独立运行、有完整结构或可持续扩展的项目放入独立仓库。后续候选包括模型实现、论文复现、RAG 和 Agent 系统，达到阶段门槛后再创建。
 
@@ -40,7 +41,7 @@
 
 2026-10-08 的记录区分本地与远程执行证据。工程增量 [9a5707696c064523ee95bcaddb49ab1f07dc4467](https://github.com/zjDing1024/pytorch-from-zero/commit/9a5707696c064523ee95bcaddb49ab1f07dc4467) 已发布；精确提交对应的 [CPU checks #37751219715](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37751219715) 已成功完成，319项测试与三条CLI通过。更多提交与完整校验见[当日日报](daily-learning/2026-10-08/README.md)。
 
-当前阶段：epoch边界checkpoint已完成本地验证、独立审查、公开发布及精确提交远程CI。第四增量已完成手写momentum与StepLR实验，本地/独立审查/精确提交远程各679项测试通过，已公开发布；真实commit与CI见后文。下一阶段：独立自测、公开授权真实数据和误差分析。助理工程产物不等同于学习者已掌握；GPU和分布式仍待后续验证。
+当前阶段：epoch边界checkpoint已完成本地验证、独立审查、公开发布及精确提交远程CI。第四增量已完成手写momentum与StepLR实验，本地/独立审查/精确提交远程各679项测试通过，已公开发布；真实commit与CI见后文。该历史阶段之后，2026-10-09已完成UCI Wine真实数据评估，见下节；下一工程入口为CPU运行时可复现、容器/依赖与资源计量，个人独立自测继续待完成。助理工程产物不等同于学习者已掌握；GPU和分布式仍待后续验证。
 
 ## 2026-10-08 第四增量：Momentum / StepLR
 
@@ -49,3 +50,10 @@
 公平预算均为200次更新、3840次样本访问。测试MSE（StepLR/固定LR）：42为0.004408268/0.004360109，7为0.003279841/0.003395952，123为0.001914461/0.001906621。没有一致胜者，不用合成数据小差异宣称策略普遍更优。验证负对照包括重置scheduler、遗漏momentum与重置shuffle；整周期切点的scheduler重置可能保留LR相位，这一例外也有测试。
 
 [实现与协议](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/scheduler-recovery.md)、[手写推导](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/momentum-sgd.md)、[原始42](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-08-scheduler-cpu.json)/[7](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-08-scheduler-seed7.json)/[123](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-08-scheduler-seed123.json)。本增量679项本地测试、全新环境独立审查、Ruff/39文件格式、pip check、compileall和四条CLI已通过；清单核对及公开发布已完成。[工程提交2ac5b1b](https://github.com/zjDing1024/pytorch-from-zero/commit/2ac5b1b7f4aa1fce36557b09ec85ce8e837cbdd8)的[CPU checks #37785797239](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37785797239)成功；补记发布证据后的[最终工程提交c3b8893](https://github.com/zjDing1024/pytorch-from-zero/commit/c3b889348cd3bbf5588d08c67bff2e372e29df99)对应[CPU checks #37786698045](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37786698045)也已成功，远程均通过679项测试与四条CLI。助理完成工程验证不等于学习者已经独立掌握。
+
+
+## 2026-10-09：公开授权真实数据分类
+
+从已完成的合成训练机制推进到UCI Wine：固定107/36/35分层划分、训练集标准化、线性与小MLP等预算比较、验证选择、最终测试和错误行分析。验证CE选中MLP，但最终测试均值为MLP96.19%、线性97.14%，训练先验/多数类基线40%；保留这个反例，没有按测试改选。每候选三种子、每次840更新/12,840样本访问。数据来源/许可/哈希、完整行ID和所有原始结果保留。
+
+[今日完整报告](daily-learning/2026-10-09/README.md)与[来源笔记](notes/深度学习笔记/2026-10-09-real-data-evaluation.md)保留本地检查、独立审查和公开发布证据。[工程增量a274382](https://github.com/zjDing1024/pytorch-from-zero/commit/a27438230cbb2a9b515a6ca355029e5c6889ec26)的[CPU checks #37808159705](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37808159705)已成功；补写三份发布证据文档后的[最终工程提交bd5ba68](https://github.com/zjDing1024/pytorch-from-zero/commit/bd5ba6883bee133f2fdbd68ebda168edea0ae767)对应[CPU checks #37809158872](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37809158872)也已成功。两次精确提交远程CI均通过709项测试、Ruff/格式和五条CLI。Wine是小而容易的历史任务，不代表真实生产泛化；个人能力仍待独立自测。下一工程方向转向运行时可复现和资源计量，不重复已完成增量。
