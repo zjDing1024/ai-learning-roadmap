@@ -47,3 +47,12 @@
 公开许可、精确数据哈希、107/36/35分层划分、仅训练集标准化，三种子比较42参数线性与275参数MLP。每次840更新/12,840样本访问。验证CE选MLP（0.014833 vs0.017577），最终测试准确率均值MLP96.19%、线性97.14%、训练先验/多数类40%。不据测试倒改选择。错误集中在行68，MLP123还错行134；35条测试样本限制了结论。
 
 [完整日报](../daily-learning/2026-10-09/README.md)、[工程协议](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/wine-evaluation.md)、[原始JSON](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-09-wine-cpu.json)。[工程增量a274382](https://github.com/zjDing1024/pytorch-from-zero/commit/a27438230cbb2a9b515a6ca355029e5c6889ec26)的[CPU checks #37808159705](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37808159705)已成功；补写三份发布证据文档后的[最终工程提交bd5ba68](https://github.com/zjDing1024/pytorch-from-zero/commit/bd5ba6883bee133f2fdbd68ebda168edea0ae767)对应[CPU checks #37809158872](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37809158872)也已成功。两次精确提交远程CI均通过709项测试、Ruff/格式和五条CLI。完整检查与独立审查在日报和工程验证记录中分别说明；三种子仅为固定划分下训练随机性。
+
+
+## 2026-10-10：CPU运行时与资源边界
+
+对前日Wine固定工作量执行source/wheel各3次新进程测量，每样本6次拟合/5,040更新/77,040样本访问；科学结果hash均与前日一致。wall、process CPU与Linux高水位RSS分别计量，环境/宿主负载不同，不从差异宣称性能增益。完整运行依赖的10个wheel哈希锁、本地wheelhouse安装及损坏/缺失产物负对照、超时进程组清理形成可运行证据。Docker已在两个精确工程提交CI真实构建与运行，本机未执行。feature运行#37959687015为source=b7ab…/container=28ce…，最终运行#37961087696为source=28ce…/container=b7ab…；各job内部重复通过。两份完整输出的最大绝对差为3.61e-16，预测与模型选择相同；因果解释仍未建立，不声称跨运行逐位一致。
+
+[日报](../daily-learning/2026-10-10/README.md)、[协议](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/runtime-reproducibility.md)、[source原始JSON](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-10-runtime-source-cpu.json)、[wheel原始JSON](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-10-runtime-wheel-cpu.json)。
+
+[修复后工程e162eaf](https://github.com/zjDing1024/pytorch-from-zero/commit/e162eafd654e44bfea3473c391491fa071b443d0)的[CPU checks #37959687015](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37959687015)，以及4份Markdown补记后的[最终工程17aed9e](https://github.com/zjDing1024/pytorch-from-zero/commit/17aed9e5ea934807477652cabbc35a4de8c86a7e)的[CPU checks #37961087696](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37961087696)均已成功。两次精确SHA的source job通过784项测试、Ruff/格式和6条CLI，container job真实完成Docker构建及非root/只读/断网的6条已安装wheel CLI。
