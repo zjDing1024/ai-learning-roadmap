@@ -56,3 +56,8 @@
 [日报](../daily-learning/2026-10-10/README.md)、[协议](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/runtime-reproducibility.md)、[source原始JSON](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-10-runtime-source-cpu.json)、[wheel原始JSON](https://github.com/zjDing1024/pytorch-from-zero/blob/main/results/2026-10-10-runtime-wheel-cpu.json)。
 
 [修复后工程e162eaf](https://github.com/zjDing1024/pytorch-from-zero/commit/e162eafd654e44bfea3473c391491fa071b443d0)的[CPU checks #37959687015](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37959687015)，以及4份Markdown补记后的[最终工程17aed9e](https://github.com/zjDing1024/pytorch-from-zero/commit/17aed9e5ea934807477652cabbc35a4de8c86a7e)的[CPU checks #37961087696](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37961087696)均已成功。两次精确SHA的source job通过784项测试、Ruff/格式和6条CLI，container job真实完成Docker构建及非root/只读/断网的6条已安装wheel CLI。
+
+
+## 2026-10-11：完整数值回归与ATen dispatch
+
+保持原Wine协议，先冻结比较计划，再恢复历史完整输出与执行A-B-B-A。分别记录严格hash、exact字段与8相邻binary64步诊断；历史最大75 ULP/932项超限仍失败，本机dispatch干预只作局部因果对照。所有原始输出、失败快照、命令和验证边界见[日报](../daily-learning/2026-10-11/README.md)及[工程协议](https://github.com/zjDing1024/pytorch-from-zero/blob/main/docs/numerical-regression.md)。[修复后工程025a1d7](https://github.com/zjDing1024/pytorch-from-zero/commit/025a1d7da1b68ccd1965b9bfb355eba643ee7505)的[CPU checks #38132126861](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132126861)已通过；随后仅补记3份Markdown的[最终工程aa56d5e](https://github.com/zjDing1024/pytorch-from-zero/commit/aa56d5e3ae5ffcee428d1f4c996a04497df7bb7e)及其[CPU checks #38132800285](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132800285)也已通过。两次精确SHA的source均通过831项测试、Ruff/格式与7条CLI；container均完成实际镜像构建和非root、只读、断网的7条已安装wheel CLI，两路artifact上传成功。

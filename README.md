@@ -21,6 +21,7 @@
 - [AI 学习路线](roadmap/AI学习路线.md)
 - [技能成长地图](roadmap/技能成长地图.md)
 - [当前能力分析](skills/当前能力分析.md)
+- [2026-10-11 每日报告](daily-learning/2026-10-11/README.md)
 - [2026-10-10 每日报告](daily-learning/2026-10-10/README.md)
 - [2026-10-09 每日报告](daily-learning/2026-10-09/README.md)
 - [2026-10-08 每日报告](daily-learning/2026-10-08/README.md)
@@ -32,7 +33,7 @@
 
 | 项目 | 当前内容 | 验证边界 |
 |---|---|---|
-| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | 张量/梯度、训练/恢复/调度、Wine评估、CPU运行时与资源计量 | 第六增量已公开，最终工程精确提交784项/source及容器6条CLI通过；观察到跨运行科学hash差异，见2026-10-10日报；个人自测待完成 |
+| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | 张量/梯度、训练/恢复/调度、Wine评估、CPU运行时与完整数值证据 | 第七增量已公开，最终精确工程提交831项source测试和7条容器CLI通过；历史8步科学诊断仍失败，原因未归定；个人自测待完成 |
 
 成长仓库保存路线、研究与总结；能独立运行、有完整结构或可持续扩展的项目放入独立仓库。后续候选包括模型实现、论文复现、RAG 和 Agent 系统，达到阶段门槛后再创建。
 
@@ -42,7 +43,7 @@
 
 2026-10-08 的记录区分本地与远程执行证据。工程增量 [9a5707696c064523ee95bcaddb49ab1f07dc4467](https://github.com/zjDing1024/pytorch-from-zero/commit/9a5707696c064523ee95bcaddb49ab1f07dc4467) 已发布；精确提交对应的 [CPU checks #37751219715](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37751219715) 已成功完成，319项测试与三条CLI通过。更多提交与完整校验见[当日日报](daily-learning/2026-10-08/README.md)。
 
-当前阶段：epoch边界checkpoint已完成本地验证、独立审查、公开发布及精确提交远程CI。第四增量已完成手写momentum与StepLR实验，本地/独立审查/精确提交远程各679项测试通过，已公开发布；真实commit与CI见后文。该历史阶段之后，2026-10-09已完成UCI Wine真实数据评估，见下节；2026-10-10已完成CPU依赖/wheel交付、资源实测及两次精确工程提交的source/container CI；下一步为个人独立自测和跨运行完整输出差异定位。助理工程产物不等同于学习者已掌握；GPU和分布式仍待后续验证。
+当前阶段：epoch边界checkpoint已完成本地验证、独立审查、公开发布及精确提交远程CI。第四增量已完成手写momentum与StepLR实验，本地/独立审查/精确提交远程各679项测试通过，已公开发布；真实commit与CI见后文。该历史阶段之后，2026-10-09已完成UCI Wine真实数据评估，见下节；2026-10-10完成CPU依赖/wheel交付与资源实测；2026-10-11补齐完整数值证据与独立比较合同，最终精确工程提交831项source及7条容器CLI通过。下一步为个人独立自测和预声明的最小逐阶段差异定位。助理工程产物不等同于学习者已掌握；GPU和分布式仍待后续验证。
 
 ## 2026-10-08 第四增量：Momentum / StepLR
 
@@ -63,3 +64,8 @@
 ## 2026-10-10：运行时与资源计量
 
 第六增量新增目标平台10个依赖wheel哈希锁、干净环境已安装wheel六条CLI、新进程计时/CPU/RSS、实际损坏/缺失产物负对照，以及超时进程组清理。固定Wine科学结果在source/wheel各3次新进程中保持与前日一致；不据不同环境的wall/RSS差异声称性能提升。Docker在GitHub CI实际构建/运行，修复后feature与最终工程精确SHA的source/container两路径都通过。本机无容器引擎；两次CI中source/container科学hash的对应关系交换，差异已量化为最大绝对差3.61e-16，具体run与边界见[新日报](daily-learning/2026-10-10/README.md)。个人独立能力仍待自测。
+
+
+## 2026-10-11：完整数值证据与预声明比较
+
+新增完整Wine输出留存、CPU/dispatch运行信息和严格结构/类型比较器。原科学hash门不变；独立8相邻binary64步诊断门在历史比较中真实失败（最大75 ULP，932项超限），未放宽阈值。A-B-B-A仅干预ATen dispatch，验证当前主机输出会变化，不能解释历史CI原因。详细结果、工程检查与发布证据见[今日日报](daily-learning/2026-10-11/README.md)。[修复后工程025a1d7](https://github.com/zjDing1024/pytorch-from-zero/commit/025a1d7da1b68ccd1965b9bfb355eba643ee7505)的[CPU checks #38132126861](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132126861)已通过；随后仅补记3份Markdown的[最终工程aa56d5e](https://github.com/zjDing1024/pytorch-from-zero/commit/aa56d5e3ae5ffcee428d1f4c996a04497df7bb7e)及其[CPU checks #38132800285](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132800285)也已通过。两次精确SHA的source均通过831项测试、Ruff/格式与7条CLI；container均完成实际镜像构建和非root、只读、断网的7条已安装wheel CLI，两路artifact上传成功。助理产物不等于个人独立掌握。
