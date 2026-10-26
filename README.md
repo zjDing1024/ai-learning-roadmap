@@ -1,6 +1,24 @@
 # AI Learning Roadmap
 
+## 2026-10-26 当前进展：四批成果公开交付
+
+本次完成已有固定输入、首步定位、saved-forward 和交付验证器的发布收尾。工程内容提交为 [c57de064e929bd388261e0514dd93015d10d8256](https://github.com/zjDing1024/pytorch-from-zero/commit/c57de064e929bd388261e0514dd93015d10d8256)，补记公开证据后的工程提交为 [3366eb96dfd3bf209e9218a39d22b4b4bca93064](https://github.com/zjDing1024/pytorch-from-zero/commit/3366eb96dfd3bf209e9218a39d22b4b4bca93064)。最终工程提交的 [CI 运行](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/40323044322)核验结果：成功。该精确提交的 source 与 installed-cpu-container 两个作业均完成且全部步骤成功；四套测试、source 8 个 CLI 及实际容器 8 个 CLI 的检查范围与内容提交相同，原始日志见该运行记录。。
+
+本次仅按实际证据记录发布、链接绑定与远端验证；10 月 22 日的本地 1,018 项测试及 source / wheel 各 8 个 CLI 不算作今天重跑。冻结历史原件保留；公开副本的隐私处理见当日日报，科学结论不因发布而改变。旧“尚未公开”描述不代表当前状态。完整边界见[10 月 26 日发布日报](daily-learning/2026-10-26/README.md)。个人独立自测仍待完成，阶段保持 PyTorch 基础工程。
+
+## 2026-10-22 历史进展：重新执行四批工程验收
+
+详见[本次日报](daily-learning/2026-10-22/README.md)。本次推进的是已存在四批成果的实际验证与交付，不再新增发布 checker，也不把助理完成的工作记为学习者已掌握。阶段仍是 PyTorch 基础工程；历史条目按其原日期理解。
+
 公开 AI 工程成长记录：以原创实现、可复现实验、源码研究与持续复盘建立作品集。
+
+## 2026-10-18 历史入口：当时的本地恢复与文档整合
+
+四批本地成果已在本恢复包中收拢：10 月 12 日固定 logits、10 月 13 日真实训练首步、10 月 14 日 saved-forward / matched-backward，以及 10 月 15 日交付验收器。本次补齐路线、能力记录、实验索引与日报导航；这是新的文档整合，不是遗失整合候选的原件恢复，也没有产生公开 commit、PR 或精确提交 CI。
+
+当时状态见 [10 月 18 日日报](daily-learning/2026-10-18/README.md)，四批材料的可用入口见[实验索引](experiments/README.md)。原 10 月 17 日恢复包中的《恢复验收报告》（REPORT.zh.md）记录四套测试合计 1,018 项及主项目 source / wheel 各八条 CLI 通过；这些是恢复时的执行证据，不是今天重跑的结果。两个独立探针与验收器仍是脚本包，未成为主项目 wheel 模块。发布门仍未闭合，旧公开提交的绿色 CI 不覆盖这些本地批次。
+
+下文按日期保留历史进度，不把历史“下一步”当作当前未执行事项。历史日报与实验快照保留原文；其中指向 GitHub main 的待发布文件链接不保证在远端可用，阅读本包请使用新的相对路径索引。跨仓库相对链接依赖本包两个仓库并列的目录布局；独立发布前须换成实际存在的目标链接。学习者个人独立自测仍待完成，当前阶段保持阶段 1。
 
 ## 目标与当前阶段
 
@@ -18,14 +36,25 @@
 
 ## 导航
 
+- [2026-10-26 发布闭环日报](daily-learning/2026-10-26/README.md)
 - [AI 学习路线](roadmap/AI学习路线.md)
 - [技能成长地图](roadmap/技能成长地图.md)
 - [当前能力分析](skills/当前能力分析.md)
+- [2026-10-18 文档整合日报](daily-learning/2026-10-18/README.md)
+- 原 10 月 17 日恢复包中的《恢复验收报告》（REPORT.zh.md）
+- [2026-10-15 交付验收日报](daily-learning/2026-10-15/README.md)
+- [2026-10-14 saved-forward 日报](daily-learning/2026-10-14/README.md)
+- [2026-10-13 真实训练首步日报](daily-learning/2026-10-13/README.md)
+- [2026-10-12 固定输入日报](daily-learning/2026-10-12/README.md)
 - [2026-10-11 每日报告](daily-learning/2026-10-11/README.md)
 - [2026-10-10 每日报告](daily-learning/2026-10-10/README.md)
 - [2026-10-09 每日报告](daily-learning/2026-10-09/README.md)
 - [2026-10-08 每日报告](daily-learning/2026-10-08/README.md)
 - [PyTorch 源码阅读](notes/深度学习笔记/2026-10-08-pytorch-source.md)
+- [固定输入来源笔记](notes/深度学习笔记/2026-10-12-fixed-input-diagnostics.md)
+- [首步 PyTorch 源码研究](https://github.com/zjDing1024/pytorch-from-zero/blob/c57de064e929bd388261e0514dd93015d10d8256/experiments/wine-first-step-2026-10-13/docs/source-study.md)
+- [saved-forward PyTorch 源码研究](https://github.com/zjDing1024/pytorch-from-zero/blob/c57de064e929bd388261e0514dd93015d10d8256/experiments/wine-saved-forward-2026-10-14/docs/source-study.md)
+- [交付验收 pytest / packaging 来源研究](https://github.com/zjDing1024/pytorch-from-zero/blob/c57de064e929bd388261e0514dd93015d10d8256/tools/wine-delivery/docs/source-study.md)
 - [实验索引](experiments/README.md)
 - [论文阅读规范](papers/README.md)
 
@@ -33,7 +62,7 @@
 
 | 项目 | 当前内容 | 验证边界 |
 |---|---|---|
-| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | 张量/梯度、训练/恢复/调度、Wine评估、CPU运行时与完整数值证据 | 第七增量已公开，最终精确工程提交831项source测试和7条容器CLI通过；历史8步科学诊断仍失败，原因未归定；个人自测待完成 |
+| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero/blob/c57de064e929bd388261e0514dd93015d10d8256/README.md) | 既有训练与评估工程，以及四批诊断/交付材料；入口见实验索引 | 当前提交与 CI 见顶部 10 月 26 日记录；历史 strict / 8-ULP 失败不变，个人自测待完成 |
 
 成长仓库保存路线、研究与总结；能独立运行、有完整结构或可持续扩展的项目放入独立仓库。后续候选包括模型实现、论文复现、RAG 和 Agent 系统，达到阶段门槛后再创建。
 
@@ -43,7 +72,7 @@
 
 2026-10-08 的记录区分本地与远程执行证据。工程增量 [9a5707696c064523ee95bcaddb49ab1f07dc4467](https://github.com/zjDing1024/pytorch-from-zero/commit/9a5707696c064523ee95bcaddb49ab1f07dc4467) 已发布；精确提交对应的 [CPU checks #37751219715](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/37751219715) 已成功完成，319项测试与三条CLI通过。更多提交与完整校验见[当日日报](daily-learning/2026-10-08/README.md)。
 
-当前阶段：epoch边界checkpoint已完成本地验证、独立审查、公开发布及精确提交远程CI。第四增量已完成手写momentum与StepLR实验，本地/独立审查/精确提交远程各679项测试通过，已公开发布；真实commit与CI见后文。该历史阶段之后，2026-10-09已完成UCI Wine真实数据评估，见下节；2026-10-10完成CPU依赖/wheel交付与资源实测；2026-10-11补齐完整数值证据与独立比较合同，最终精确工程提交831项source及7条容器CLI通过。下一步为个人独立自测和预声明的最小逐阶段差异定位。助理工程产物不等同于学习者已掌握；GPU和分布式仍待后续验证。
+当前阶段：epoch边界checkpoint已完成本地验证、独立审查、公开发布及精确提交远程CI。第四增量已完成手写momentum与StepLR实验，本地/独立审查/精确提交远程各679项测试通过，已公开发布；真实commit与CI见后文。该历史阶段之后，2026-10-09已完成UCI Wine真实数据评估，见下节；2026-10-10完成CPU依赖/wheel交付与资源实测；2026-10-11补齐完整数值证据与独立比较合同，最终精确工程提交831项source及7条容器CLI通过。2026-10-12已推进固定logits的最小逐阶段诊断（负结果及实际状态见最新日报）；下一步为个人独立自测和另行预声明的一步训练边界。助理工程产物不等同于学习者已掌握；GPU和分布式仍待后续验证。
 
 ## 2026-10-08 第四增量：Momentum / StepLR
 
@@ -69,3 +98,8 @@
 ## 2026-10-11：完整数值证据与预声明比较
 
 新增完整Wine输出留存、CPU/dispatch运行信息和严格结构/类型比较器。原科学hash门不变；独立8相邻binary64步诊断门在历史比较中真实失败（最大75 ULP，932项超限），未放宽阈值。A-B-B-A仅干预ATen dispatch，验证当前主机输出会变化，不能解释历史CI原因。详细结果、工程检查与发布证据见[今日日报](daily-learning/2026-10-11/README.md)。[修复后工程025a1d7](https://github.com/zjDing1024/pytorch-from-zero/commit/025a1d7da1b68ccd1965b9bfb355eba643ee7505)的[CPU checks #38132126861](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132126861)已通过；随后仅补记3份Markdown的[最终工程aa56d5e](https://github.com/zjDing1024/pytorch-from-zero/commit/aa56d5e3ae5ffcee428d1f4c996a04497df7bb7e)及其[CPU checks #38132800285](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/38132800285)也已通过。两次精确SHA的source均通过831项测试、Ruff/格式与7条CLI；container均完成实际镜像构建和非root、只读、断网的7条已安装wheel CLI，两路artifact上传成功。助理产物不等于个人独立掌握。
+
+
+## 2026-10-12：固定输入诊断与负结果
+
+新增原创固定logits探针：预声明16×3 dyadic fixture、14个softmax/log-softmax/CE/梯度及显式运算记录，零训练更新。本次AMD EPYC 9V74上的A-B-B-A实际AVX512/DEFAULT切换、输入/控制与重复性通过，但465个输出值全部逐位相同；前次Wine干预为另一Intel主机，原计划同主机背景误述及事后更正见日报；没有本fixture的首个不等边界，不因此更换输入搜索差异，也不外推到Wine训练或历史CI。原严格hash与8 ULP失败记录保持。详细原始证据、实际检查和发布状态见[日报](daily-learning/2026-10-12/README.md)。下一步另行预声明固定真实训练输入/初始权重的一步forward/loss/gradient/update，个人独立自测仍待完成。
