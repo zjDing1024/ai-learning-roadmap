@@ -1,5 +1,9 @@
 # AI Learning Roadmap
 
+## 2026-10-27 当前进展：梯度累积的更新合同
+
+本轮从已闭合的发布工作转回训练循环：研究不等长微批次与尾累积窗口的正确归一化，并以真实有效批次更新作对照。实现、测试、数值结果、精确提交与 CI 统一见[10 月 27 日日报](daily-learning/2026-10-27/README.md)；[来源与推导](notes/深度学习笔记/2026-10-27-gradient-accumulation.md)记录 Accelerate / PyTorch 官方参考及独立实现边界。仍属阶段 1，个人独立自测未被助理成果替代。
+
 ## 2026-10-26 当前进展：四批成果公开交付
 
 本次完成已有固定输入、首步定位、saved-forward 和交付验证器的发布收尾。工程内容提交为 [c57de064e929bd388261e0514dd93015d10d8256](https://github.com/zjDing1024/pytorch-from-zero/commit/c57de064e929bd388261e0514dd93015d10d8256)，补记公开证据后的工程提交为 [3366eb96dfd3bf209e9218a39d22b4b4bca93064](https://github.com/zjDing1024/pytorch-from-zero/commit/3366eb96dfd3bf209e9218a39d22b4b4bca93064)。最终工程提交的 [CI 运行](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/40323044322)核验结果：成功。该精确提交的 source 与 installed-cpu-container 两个作业均完成且全部步骤成功；四套测试、source 8 个 CLI 及实际容器 8 个 CLI 的检查范围与内容提交相同，原始日志见该运行记录。。
