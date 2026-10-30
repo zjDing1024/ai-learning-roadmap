@@ -1,5 +1,9 @@
 # AI Learning Roadmap
 
+## 2026-10-31 当前进展：随机前向的 RNG 边界
+
+本轮从联合恢复中拆出尚未验证的随机前向问题：固定 CPU float64 小网络的 Dropout 前向与反向重放，比较当前 RNG 状态、初始 seed、初始化顺序、模型模式和调用者随机状态隔离。此项不做参数更新，也未扩展昨日的 JointTrainer，不能写成随机训练恢复已完成。实际结果与精确提交见[10 月 31 日日报](daily-learning/2026-10-31/README.md)，PyTorch / Accelerate 官方源码研究见[原创学习笔记](notes/深度学习笔记/2026-10-31-dropout-rng-boundary.md)。阶段保持 1，个人独立自测仍待完成。
+
 ## 2026-10-30 当前进展：索引流与累积训练的联合恢复
 
 本轮把打乱索引流与固定 CPU float64 仿射 SGD 训练器放进同一恢复合同，明确 fetch、backward 与进度提交边界。发出索引后若训练未完成，旧对象拒绝保存和继续，必须从先前完整联合快照恢复；不宣称内存自动回滚、任意位置 exactly-once 或断电持久性。实际结果、精确提交与 CI 统一见[10 月 30 日日报](daily-learning/2026-10-30/README.md)，原理及官方来源见[原创学习笔记](notes/深度学习笔记/2026-10-30-joint-training-recovery.md)。阶段保持 1，个人能力待独立自测。
