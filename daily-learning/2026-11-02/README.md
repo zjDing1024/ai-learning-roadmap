@@ -1,5 +1,7 @@
 # AI Engineer Daily Report：2026-11-02
 
+同日后续工作已转向[固定批次训练诊断](TRAINING_DIAGNOSTICS.md)。本页保留较早完成的随机联合恢复实验与证据。
+
 时区：Asia/Kuala_Lumpur。主题：输入 Dropout 与累积 SGD 的联合安全点恢复。
 
 ## 本轮范围与工程进展
