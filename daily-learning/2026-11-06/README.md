@@ -68,7 +68,17 @@ Ruff、格式、compileall及pip check通过。fresh非editable wheel离线安�
 
 [完整本地验收](https://github.com/zjDing1024/pytorch-from-zero/blob/98c55d4b4bbe08567f6170e4358a840034e45698/results/2026-11-06-update-schedule-verification.md) · [独立审查](https://github.com/zjDing1024/pytorch-from-zero/blob/98c55d4b4bbe08567f6170e4358a840034e45698/results/2026-11-06-update-schedule-independent-review.md) · [安装wheel摘要](https://github.com/zjDing1024/pytorch-from-zero/blob/98c55d4b4bbe08567f6170e4358a840034e45698/results/2026-11-06-update-schedule-installed-wheel-summary.json)
 
-工程 main 已核验为下列提交，402个远端文件的blob与mode匹配最终清单；24个变更，含11新增，无删除。远端CI刚触发，当前尚未取得完成结果，不称CI通过。学习仓库没有工作流，不宣称学习仓库CI成功。
+工程 main 已核验为下列提交，402个远端文件的blob与mode匹配最终清单；24个变更，含11新增，无删除。
+
+精确工程提交的 [CI #42064073967](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/42064073967) 已完成且 **success**，source 与 installed-cpu-container 两作业均成功。
+
+- 远端source主套件1926通过（344.32秒），独立59／45／34分别4.32／4.41／1.178秒，共2064项；Ruff lint与204文件格式检查通过，23个source CLI执行步骤成功。
+- 真实container执行23个已安装CLI成功。没有容器全量pytest，不把2064个source测试说成容器测试。
+- 两份artifact实际下载，API SHA-256与ZIP CRC验证通过；source含25个JSON，container含1份完整报告。两处新实验均为12配置、588更新／12486训练访问／60评估／6420评估访问，全部科学检查通过。
+- source Python3.12.15，container Python3.12.14，均Torch2.14.1+cpu。source与container本次configurations字段精确相同，但与本地存在末位差异，最大训练终点CE绝对差为5.551115123125783e-17。每个环境内部完整恢复通过；不宣称跨环境完整JSON或全部结果逐位相同。
+- 12配置均保持constant短前缀训练CE更低的观察，不因此取得泛化或生产性能证据。学习仓库无工作流，不宣称其CI通过。
+
+学习记录首个发布提交为 [577c53173fe1a60ff8af5237521d6338aae2e24f](https://github.com/zjDing1024/ai-learning-roadmap/commit/577c53173fe1a60ff8af5237521d6338aae2e24f)，远端55个文件经核对：48个未改文件与基线blob／mode相同，7个修改／新增文件与本地发布内容的git blob哈希和mode匹配。当前补充只更新本日报的实际CI终态。
 
 工程提交：[98c55d4b4bbe08567f6170e4358a840034e45698](https://github.com/zjDing1024/pytorch-from-zero/commit/98c55d4b4bbe08567f6170e4358a840034e45698)。发布前学习仓库基线为240eee4c5513e7f3ec82860ffa23a8b43d311843，最新已有日报为11-05，未覆盖历史日报。仅发布本任务原创代码与技术记录，未使用收费资源或公开既有私有内容。
 
