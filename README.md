@@ -1,5 +1,9 @@
 # AI Learning Roadmap
 
+## 2026-11-06 最新进展：真实训练更新时钟
+
+完成 Wine constant／step7 的固定14更新对照，明确 lr_used／lr_next，并在第6／7／8步完整边界恢复状态。24主轨迹加36恢复后缀共588更新、12486训练访问；12配置中 constant 的短期训练CE均较低，不外推泛化。见[日报](daily-learning/2026-11-06/README.md)与[源码笔记](notes/深度学习笔记/2026-11-06-update-clock-scheduler.md)。下方历史段落保留原时点状态。
+
 ## 2026-11-05 最新进展：批次预算的 CPU 计量
 
 沿用已完成的双预算训练，单独计量 prepared-batch 更新循环并核对最终状态。重复测量、预热及参考成本分开记录，不把短时计时当作普遍加速结论。见[日报](daily-learning/2026-11-05/README.md)与[研究笔记](notes/深度学习笔记/2026-11-05-batch-compute.md)。
@@ -165,3 +169,4 @@
 ## 2026-10-12：固定输入诊断与负结果
 
 新增原创固定logits探针：预声明16×3 dyadic fixture、14个softmax/log-softmax/CE/梯度及显式运算记录，零训练更新。本次AMD EPYC 9V74上的A-B-B-A实际AVX512/DEFAULT切换、输入/控制与重复性通过，但465个输出值全部逐位相同；前次Wine干预为另一Intel主机，原计划同主机背景误述及事后更正见日报；没有本fixture的首个不等边界，不因此更换输入搜索差异，也不外推到Wine训练或历史CI。原严格hash与8 ULP失败记录保持。详细原始证据、实际检查和发布状态见[日报](daily-learning/2026-10-12/README.md)。下一步另行预声明固定真实训练输入/初始权重的一步forward/loss/gradient/update，个人独立自测仍待完成。
+

@@ -1,5 +1,9 @@
 # 实验索引
 
+## 2026-11-06：Wine update-clock 学习率对照
+
+两架构×三种子×两batch，constant／step7各14更新；6／7／8切点恢复与每个剩余边界完整状态比较。实际588更新、12486训练访问、60次训练终点评估。分开记录本步LR与下步LR，不使用留出评分选参。见[完整报告](../daily-learning/2026-11-06/README.md)。
+
 ## 2026-11-05：prepared-batch CPU 计量
 
 固定三种训练分支，参考／预热／三重复分开核算；真实计时无性能排名通过门。见[完整日报](../daily-learning/2026-11-05/README.md)。
@@ -166,3 +170,4 @@
 原 10 月 17 日恢复包中的《恢复验收报告》（REPORT.zh.md）记录主工程 880、首步 59、saved-forward 45、验收器 34 项测试分别通过，合计 1,018 项；重复执行不再次累计。主项目 source 与新非 editable wheel 各八条 CLI 通过，三个独立脚本包不在该 wheel 覆盖范围内。本次文档工作只补齐入口和状态，未开展新的科学干预，也未将这组既有结果冒充今天的重跑。
 
 公开发布、最终实际文件清单复核和新精确提交 CI 仍须按发布门处理；没有新增 Docker、全新依赖安装、跨平台复现或个人独立能力的证明。后续先闭合交付/发布与[个人自测](https://github.com/zjDing1024/pytorch-from-zero/blob/c57de064e929bd388261e0514dd93015d10d8256/docs/learner-self-check.md)，不为更好数值结果重选 fixture、seed、阈值或测试集。
+
