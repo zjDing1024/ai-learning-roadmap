@@ -65,4 +65,18 @@ constant在两架构更长预算下仍具有较低验证CE。step7保持原设�
 - [最终原始JSON](https://github.com/zjDing1024/pytorch-from-zero/blob/837141c9366ba99866cad0b21aa62bb225fd3edd/results/2026-11-07-wine-learning-curves-final.json)
 - [本地验收](https://github.com/zjDing1024/pytorch-from-zero/blob/837141c9366ba99866cad0b21aa62bb225fd3edd/results/2026-11-07-learning-curves-verification.md)
 - [安装wheel摘要](https://github.com/zjDing1024/pytorch-from-zero/blob/837141c9366ba99866cad0b21aa62bb225fd3edd/results/2026-11-07-learning-curves-wheel-summary.json)
-- [精确SHA CI #42252188021](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/42252188021)：发布学习记录时仍in_progress，尚不能声称远程通过；终态核验后单独补记。本学习仓库无工作流，不称其CI通过。
+- [精确SHA CI #42252188021](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/42252188021)：已完成且success，source与installed-cpu-container两个作业均成功。下节为实际核验。本学习仓库无工作流，不称其CI通过。
+
+
+## 精确提交CI终态核验
+
+工程SHA837141c9366ba99866cad0b21aa62bb225fd3edd对应的CI于2026-11-06 16:36 UTC完成，结论success。
+
+- 远端source主套件1960通过（368.28秒）；独立59／45／34项分别5.10／5.15／0.987秒，共2098项。Ruff和格式步骤成功，24条source CLI与两条既有独立validation脚本执行成功。
+- 真实Docker构建成功；非root、只读、断网容器中的24条已安装CLI全部通过。未运行容器全量pytest，不将2098个source测试写成容器测试。
+- 实际下载source artifact（26个JSON）与container artifact（1个完整报告），均与API提供的ZIP SHA-256匹配，ZIP CRC检查通过。
+- source artifact ID13522290046，SHA-256 f6a0edb52fc9b35c176315220434dcd01a53730c04061091e7a1e2539841971c；container ID13520553352，SHA-256 945c8880f363380c4bcec8b3586185185b190bc508cafb0dcb5a698caf6dd195。artifact按CI策略保留30天，持久实验原始结果在工程提交中。
+- source Python3.12.16、container Python3.12.14，均PyTorch2.14.1+cpu。两路新实验检查通过，均1680更新／25680训练访问／528评估／36048评估访问，均选择mlp16／constant／epoch20。
+- source选定均值0.03957983499092707；container与本地为0.039579834990927085。source与container全部曲线CE最大绝对差1.1102230246251565e-16；完整JSON及参数轨迹不逐位相同。每个环境内部终点回载检查通过，不宣称跨运行时逐位复现。本次container新实验完整JSON与本地相同，仅限已核验环境。
+
+学习记录首个发布提交：[fde799d97bb8d8f51550888c72a877763e93a39f](https://github.com/zjDing1024/ai-learning-roadmap/commit/fde799d97bb8d8f51550888c72a877763e93a39f)，7个修改／新增文件blob已核验。当前补充只修改本日报以记录实际CI终态，不改变工程代码或实验协议。新增独立仓库：无。
