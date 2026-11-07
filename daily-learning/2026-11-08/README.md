@@ -51,7 +51,16 @@
 
 工程提交：[aca507c1e6569e81acd0aa1700314590c34f48ab](https://github.com/zjDing1024/pytorch-from-zero/commit/aca507c1e6569e81acd0aa1700314590c34f48ab)。学习仓库基线b835d71d684761d0516f3a075e03313aba8aa1aa，已核对最新11-07记录，无11-08重复日报。历史日报保留，仅新增本轮原创技术资料与索引；未公开私有内容、凭据或个人敏感信息，未使用收费资源。新增独立仓库：无，成果继续深化现有工程仓库。
 
-工程main已核验为上述SHA，27个修改／新增文件的blob与mode与本地一致，远端共424文件。[精确提交CI #42390607209](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/42390607209)仍在运行，当前不宣称CI成功。学习仓库没有工作流，不声称其CI通过。
+工程main已核验为上述SHA，27个修改／新增文件的blob与mode与本地一致，远端共424文件。
+
+[精确提交CI #42390607209](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/42390607209) 已完成且 **success**，source与installed-cpu-container两作业均成功。
+
+- 远端source主套件2003通过（327.21秒）；独立59／45／34项分别4.25／4.41／1.031秒通过，共2141项。25个source CLI执行成功。
+- 真实container内25个已安装CLI全部通过，不将source测试数记成容器全量pytest。
+- source artifact 13581547183实际下载，包含27个JSON，ZIP SHA-256为476cb7cf829cfd34d6eed73ecc800af1e696c4e59e53f214e04d85a84ca75fb4；container artifact 13581378105实际下载，ZIP SHA-256为a849fb78fe9766610ee7aab3d2978f1a299d898360c5146d5963e7091c91210b。两者均与API摘要匹配并通过ZIP CRC检查。
+- source／container新bundle检查均通过，140更新／2140训练访问、107行推理往返；本次source新bundle完整JSON与本地／container相同。只描述这次核验，不保证其他硬件、版本或未来执行逐位一致。没有新增留出评分、吞吐或泛化结论。
+
+学习记录初次发布 [19c5afc526429de8c27078f17f1cc28a2675d49d](https://github.com/zjDing1024/ai-learning-roadmap/commit/19c5afc526429de8c27078f17f1cc28a2675d49d) 后，59个远端文件blob均与本地内容一致。本次补记仅更新本日报的实际CI终态，学习仓库没有工作流，不声称其CI通过。
 
 ## 求职价值与能力边界
 
