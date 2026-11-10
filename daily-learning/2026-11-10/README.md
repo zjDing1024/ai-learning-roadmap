@@ -61,7 +61,13 @@
 - [完整本地验收](https://github.com/zjDing1024/pytorch-from-zero/blob/21d5997d51b8668a8952065b77ec17be140ffe96/results/2026-11-10-batch-inference-verification.md)
 - [可运行混合输入样例](https://github.com/zjDing1024/pytorch-from-zero/blob/21d5997d51b8668a8952065b77ec17be140ffe96/examples/wine-batch-mixed-request.json)
 
-[精确提交CI #42825707887](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/42825707887)已触发，首次发布本日报时仍待完成，尚未将远端source／container结果记为通过。后续会按该精确SHA实际终态补记。学习仓库没有工作流，不声称其CI通过。
+[精确提交CI #42825707887](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/42825707887)已完成且 **success**，核对head SHA仍为21d5997d51b8668a8952065b77ec17be140ffe96。source与installed-cpu-container两个作业均成功。
+
+- 远端source主套件2060项通过（385.77秒），三个独立套件59／45／34项分别4.92／5.11／1.164秒通过，共2198项唯一测试。26条source CLI全部成功。
+- 真实Docker构建及断网／只读／非root运行完成，容器内26条已安装CLI全部通过。不是容器内全量pytest。
+- 实际下载source artifact 13768414307，包含28个JSON，ZIP SHA-256为c8c819fc9586f12d2de3f31eeaa0bce2f9da0db36a20296383f08d3a6ec427af；container artifact 13769277562的ZIP SHA-256为aa5962afe8783cc6812aa6c91c4f1276ad7e758764791d7daa35f8c2631c1022。两者均与API摘要一致，且ZIP CRC检查通过。
+- 两份artifact里的本轮批量实验均68/68检查通过，fixture均140更新／2140训练访问。source Python3.12.16，container与本地Python3.12.14；均PyTorch2.14.1+cpu、单线程float64。时间样本会变化，不声称跨运行完整JSON逐字节相同，也不因来源不同作性能排名。
+- 本日报初版学习提交[4b138e3d0c5c441b646079c9abf2f3b5f064cc9b](https://github.com/zjDing1024/ai-learning-roadmap/commit/4b138e3d0c5c441b646079c9abf2f3b5f064cc9b)已核对7个改动文件的blob与mode。这次仅补记实际CI终态。学习仓库没有工作流，不声称其CI通过。
 
 ## 求职价值分析
 
