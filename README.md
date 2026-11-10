@@ -1,5 +1,7 @@
 # AI Learning Roadmap
 
+[当前工程项目](https://github.com/zjDing1024/pytorch-from-zero) · [最新工程与验证记录](daily-learning/2026-11-10/README.md) · [实验索引](experiments/README.md)
+
 ## 2026-11-10 最新进展：批量推理与端到端成本
 
 新增保留原始行序号的逐项错误、一次向量化forward与常驻模型接口，分别测量内存各阶段和新进程JSON文件到文件成本。按真实执行日补充，不伪造11月9日日报。见[日报](daily-learning/2026-11-10/README.md)与[原理笔记](notes/深度学习笔记/2026-11-10-batch-inference.md)。
@@ -114,6 +116,7 @@
 
 ## 导航
 
+- [2026-11-10 批量推理与端到端成本日报](daily-learning/2026-11-10/README.md)
 - [2026-10-26 发布闭环日报](daily-learning/2026-10-26/README.md)
 - [AI 学习路线](roadmap/AI学习路线.md)
 - [技能成长地图](roadmap/技能成长地图.md)
@@ -140,11 +143,15 @@
 
 | 项目 | 当前内容 | 验证边界 |
 |---|---|---|
-| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero/blob/c57de064e929bd388261e0514dd93015d10d8256/README.md) | 既有训练与评估工程，以及四批诊断/交付材料；入口见实验索引 | 当前提交与 CI 见顶部 10 月 26 日记录；历史 strict / 8-ULP 失败不变，个人自测待完成 |
+| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | CPU-first PyTorch 实验工程：训练与状态恢复、Wine 评估、可重载模型产物、逐项错误隔离的批量推理及端到端成本计量 | 当前实现见默认分支；精确提交、测试与 CI 见[最新日报](daily-learning/2026-11-10/README.md)。工程证据不代表学习者已独立掌握 |
+
+项目入口跟随默认分支。[2026-10-26 README 快照](https://github.com/zjDing1024/pytorch-from-zero/blob/c57de064e929bd388261e0514dd93015d10d8256/README.md)保留为四批成果发布时的历史证据；各次实验的固定提交、CI 和 strict / 8-ULP 负结果仍按原日期查阅。
 
 成长仓库保存路线、研究与总结；能独立运行、有完整结构或可持续扩展的项目放入独立仓库。后续候选包括模型实现、论文复现、RAG 和 Agent 系统，达到阶段门槛后再创建。
 
-## 当前工程进度
+## 2026-10-08 至 2026-10-12 历史工程进度
+
+以下“当前阶段”和“下一步”保留当时的语境，不作为当前任务清单；最新进度见顶部日报入口。
 
 2026-10-08：完成原始 PyTorch 实验、自动化测试、官方源码研究及同日 Module/DataLoader 小批次增量，保留原手写基线。今天继续加入checkpoint：恢复模型、momentum优化器、配置、历史与局部随机状态；种子42/7/123新进程实验各15项断言通过、恢复参数差0，完整本地319项测试及三条CLI通过。详细数值、文件与命令见当日日报。代码与记录由 AI 助理准备，结论限定在实际检查范围内。
 
