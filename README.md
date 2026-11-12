@@ -1,5 +1,12 @@
 # AI Learning Roadmap
 
+## 2026-11-13：真实文本训练与检索服务
+
+- [Transformer](https://github.com/zjDing1024/transformer-from-scratch)已接入真实Flask文档byte语言模型：99,968参数、600步、文档分离评估与train-only bigram对照；测试byte PPL为11.236，但生成仍不连贯，不是可用LLM。
+- [RAG检索基础](https://github.com/zjDing1024/production-rag-system)新增HTTP调用、透明中文词典和覆盖门；同开发集命中18/18、不可答返回0/4不构成泛化或拒答能力，仍无生成器。
+
+[11月13日完整日报](daily-learning/2026-11-13/README.md)列出协议、实际测试、局限和精确提交CI。历史日期内容保留当时范围。
+
 ## 2026-11-12：加速路线第一步
 
 - **PyTorch 主路径已发布**：[训练→验证→导出→预测](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/docs/project-path.md)，本地2205项测试通过，精确CI状态见当日报告。
@@ -10,7 +17,7 @@
 
 ## 历史学习与工程记录
 
-[当前工程项目](https://github.com/zjDing1024/pytorch-from-zero) · [最新工程与验证记录](daily-learning/2026-11-12/README.md) · [实验索引](experiments/README.md)
+[当前工程项目](https://github.com/zjDing1024/pytorch-from-zero) · [最新工程与验证记录](daily-learning/2026-11-13/README.md) · [实验索引](experiments/README.md)
 
 ## 2026-11-10 最新进展：批量推理与端到端成本
 
