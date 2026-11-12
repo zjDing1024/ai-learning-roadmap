@@ -3,10 +3,10 @@
 ## 2026-11-12：加速路线第一步
 
 - **PyTorch 主路径已发布**：[训练→验证→导出→预测](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/docs/project-path.md)，本地2205项测试通过，精确CI状态见当日报告。
-- **Transformer 核心本地已验证，公开发布待确认**：attention、位置编码、归一化、残差与encoder；52项CPU测试，不等于论文完整复现。
-- **RAG 检索基础本地已验证，公开发布待确认**：许可明确语料、切分、BM25与22题开发评测；34项测试，尚无LLM回答。
+- **[Transformer 核心已公开](https://github.com/zjDing1024/transformer-from-scratch)**：attention、位置编码、归一化、残差与encoder；52项CPU测试，不等于论文完整复现。
+- **[RAG 检索基础已公开](https://github.com/zjDing1024/production-rag-system)**：许可明确语料、切分、BM25与22题开发评测；34项测试，尚无LLM回答。
 
-[11月12日完整记录](daily-learning/2026-11-12/README.md)区分已发布、待发布和未做。三条线并行推进，不再让单一小模型细节占据全部进度；2～3天可运行、4～7天增强项目说服力是目标而非完成声明。
+[11月12日完整记录](daily-learning/2026-11-12/README.md)记录三个项目的已发布版本、精确提交CI与尚未完成范围。三条线并行推进，不再让单一小模型细节占据全部进度；2～3天可运行、4～7天增强项目说服力是目标而非完成声明。
 
 ## 历史学习与工程记录
 

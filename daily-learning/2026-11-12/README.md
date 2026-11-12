@@ -20,15 +20,19 @@
 
 [精确提交CI #43152702049](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/43152702049) 已完成且 **success**，head为d81080d81c2ffdf6db7e699c6903ccd5e142f538，source与installed-cpu-container两作业成功，新增完整主路径步骤均成功。实际source日志主套件2067项通过（305.96秒），另59／45／34独立测试通过，共2205项；Ruff、26个既有CLI与新完整路径成功。容器成功不等于在容器运行了2205项全量pytest，不将源码测试数量移作容器证据。
 
-学习记录首次发布[29487de0dc5d2fb0d2dfa312d806e70cb6091b02](https://github.com/zjDing1024/ai-learning-roadmap/commit/29487de0dc5d2fb0d2dfa312d806e70cb6091b02)已核验main及4个变更文件正文。本次补记只更新本日报的CI实际终态；两个新项目仍以各自下节的待发布状态为准。
+学习记录首次发布[29487de0dc5d2fb0d2dfa312d806e70cb6091b02](https://github.com/zjDing1024/ai-learning-roadmap/commit/29487de0dc5d2fb0d2dfa312d806e70cb6091b02)已核验main及4个变更文件正文。本次补记只更新本日报的CI实际终态；随后两个新项目也已获确认并公开，实际发布与CI证据见下节。
 
 ## 2. Transformer：核心模块
 
-**本地已实现并验证，公开仓库尚未创建，等待针对新公开仓库的确认**。项目transformer-from-scratch，本地commit20fe3003fbfc8a0b555308e49e601f101404f957，无已发布仓库链接或远端CI证据。
+**已公开发布并验证**：[transformer-from-scratch](https://github.com/zjDing1024/transformer-from-scratch)，远端main为[747e76a362fc3b005a20e5fa7a3087982ece379b](https://github.com/zjDing1024/transformer-from-scratch/commit/747e76a362fc3b005a20e5fa7a3087982ece379b)，26个远端文件blob与验证版逐项一致。此前本地20fe300版本的待发布状态已闭合。
+
+[精确提交CI #43173798578](https://github.com/zjDing1024/transformer-from-scratch/actions/runs/43173798578) 已完成且success；实际日志52 passed、1 warning，Ruff检查通过、13文件格式通过，依赖安装与验证样例成功。[完整验收记录](https://github.com/zjDing1024/transformer-from-scratch/blob/747e76a362fc3b005a20e5fa7a3087982ece379b/docs/validation.md)保留本地与发布前复跑范围。
 
 原创实现scaled dot-product attention、多头注意力、sin/cos位置编码、LayerNorm、残差、FFN和post-norm encoder block。理论来源为Vaswani等的 [Attention Is All You Need](https://arxiv.org/abs/1706.03762)，对照PyTorch官方API与源码，未复制实现或论文图表；原创项目采用MIT，依赖与参考保留各自许可。
 
 52项CPU测试通过，Ruff、compileall和隔离安装wheel验证通过，项目外执行JSON逐字匹配源码。独立复核发现外层autocast可使低精度attention绕过float32中间计算并产生NaN，已修复并加入回归；独立7项复核已通过；上报的最终测试总数为52项，不另将复核运行累计为新增测试。float64参考前向最大误差6.66e-16、梯度误差4.44e-16。
+
+发布前从已交付包恢复，26项摘要一致；再次运行52项测试、Ruff和验证例子通过。不同执行实例浮点末位不同，attention／gradient误差仍在1e-15内，个别中间float32 loss差约2.4e-7，首尾损失不变。源码与wheel逐字匹配仅指原先同实例验证，不宣称跨CPU实例逐位一致。
 
 2343参数合成smoke运行10步，loss从2.055674降至1.465322，只证明前向／反向／更新连接，不是论文复现、语言理解或真实任务效果。尚无完整encoder-decoder训练或WMT／BLEU结果。全遮罩行、padding及布尔mask语义均明确限定，未宣称CUDA AMP已验证。
 
@@ -42,7 +46,9 @@
 
 34项源码unittest通过，新建独立环境安装wheel后同34项通过，完整评测JSON逐字节复现，不能累计成68种测试。单机220次暖检索median0.199ms／p95 0.304ms，单次load＋chunk＋index为29.65ms；不含进程启动、磁盘输出或模型调用，不作生产SLA。
 
-发布状态：**仅本地完成，公开仓库尚未创建，等待针对新公开仓库的确认**。本地commit为55a7c5a8e2aa4267baa5f928b861f81e51e89529；源码与说明已打包供交付。没有可核验的远端仓库或远端CI，不给出假仓库链接。独立审查在当前声明范围内无阻断问题，尚未验证大规模语料、并发服务或生成环节。
+发布状态：**已公开发布并验证**：[production-rag-system](https://github.com/zjDing1024/production-rag-system)，远端main为[a3f3bbfc293bd712fe50edd8aead838aa9164525](https://github.com/zjDing1024/production-rag-system/commit/a3f3bbfc293bd712fe50edd8aead838aa9164525)，29个文件blob逐项匹配验证版，内容树1041dd9e71d1018d947a8af94d8fd82e742356fa与此前本地55a7c5a版本一致。
+
+[精确提交CI #43173608513](https://github.com/zjDing1024/production-rag-system/actions/runs/43173608513) 已完成且success，Python3.11与3.12两作业全部步骤成功；日志分别确认34项测试通过，编译、完整评测JSON与示例输出字节复现通过。重复环境不累计为68种测试。[完整项目报告](https://github.com/zjDing1024/production-rag-system/blob/a3f3bbfc293bd712fe50edd8aead838aa9164525/docs/day1-report.md)。独立审查在声明范围内无阻断问题，仍未验证大规模语料、并发服务或生成环节。
 
 ## 工程价值与边界
 
