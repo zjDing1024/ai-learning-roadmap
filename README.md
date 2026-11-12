@@ -1,6 +1,16 @@
 # AI Learning Roadmap
 
-[当前工程项目](https://github.com/zjDing1024/pytorch-from-zero) · [最新工程与验证记录](daily-learning/2026-11-10/README.md) · [实验索引](experiments/README.md)
+## 2026-11-12：加速路线第一步
+
+- **PyTorch 主路径已发布**：[训练→验证→导出→预测](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/docs/project-path.md)，本地2205项测试通过，精确CI状态见当日报告。
+- **Transformer 核心本地已验证，公开发布待确认**：attention、位置编码、归一化、残差与encoder；52项CPU测试，不等于论文完整复现。
+- **RAG 检索基础本地已验证，公开发布待确认**：许可明确语料、切分、BM25与22题开发评测；34项测试，尚无LLM回答。
+
+[11月12日完整记录](daily-learning/2026-11-12/README.md)区分已发布、待发布和未做。三条线并行推进，不再让单一小模型细节占据全部进度；2～3天可运行、4～7天增强项目说服力是目标而非完成声明。
+
+## 历史学习与工程记录
+
+[当前工程项目](https://github.com/zjDing1024/pytorch-from-zero) · [最新工程与验证记录](daily-learning/2026-11-12/README.md) · [实验索引](experiments/README.md)
 
 ## 2026-11-10 最新进展：批量推理与端到端成本
 
@@ -188,4 +198,5 @@
 ## 2026-10-12：固定输入诊断与负结果
 
 新增原创固定logits探针：预声明16×3 dyadic fixture、14个softmax/log-softmax/CE/梯度及显式运算记录，零训练更新。本次AMD EPYC 9V74上的A-B-B-A实际AVX512/DEFAULT切换、输入/控制与重复性通过，但465个输出值全部逐位相同；前次Wine干预为另一Intel主机，原计划同主机背景误述及事后更正见日报；没有本fixture的首个不等边界，不因此更换输入搜索差异，也不外推到Wine训练或历史CI。原严格hash与8 ULP失败记录保持。详细原始证据、实际检查和发布状态见[日报](daily-learning/2026-10-12/README.md)。下一步另行预声明固定真实训练输入/初始权重的一步forward/loss/gradient/update，个人独立自测仍待完成。
+
 
