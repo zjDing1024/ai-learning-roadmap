@@ -18,7 +18,9 @@
 
 [运行说明](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/docs/project-path.md) · [原始结果](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/results/2026-11-12-project-path.json) · [验收记录](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/results/2026-11-12-project-path-verification.md)。
 
-[精确提交CI #43152702049](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/43152702049)当前运行中，未据本地测试提前宣称远端CI通过。
+[精确提交CI #43152702049](https://github.com/zjDing1024/pytorch-from-zero/actions/runs/43152702049) 已完成且 **success**，head为d81080d81c2ffdf6db7e699c6903ccd5e142f538，source与installed-cpu-container两作业成功，新增完整主路径步骤均成功。实际source日志主套件2067项通过（305.96秒），另59／45／34独立测试通过，共2205项；Ruff、26个既有CLI与新完整路径成功。容器成功不等于在容器运行了2205项全量pytest，不将源码测试数量移作容器证据。
+
+学习记录首次发布[29487de0dc5d2fb0d2dfa312d806e70cb6091b02](https://github.com/zjDing1024/ai-learning-roadmap/commit/29487de0dc5d2fb0d2dfa312d806e70cb6091b02)已核验main及4个变更文件正文。本次补记只更新本日报的CI实际终态；两个新项目仍以各自下节的待发布状态为准。
 
 ## 2. Transformer：核心模块
 
@@ -26,7 +28,7 @@
 
 原创实现scaled dot-product attention、多头注意力、sin/cos位置编码、LayerNorm、残差、FFN和post-norm encoder block。理论来源为Vaswani等的 [Attention Is All You Need](https://arxiv.org/abs/1706.03762)，对照PyTorch官方API与源码，未复制实现或论文图表；原创项目采用MIT，依赖与参考保留各自许可。
 
-52项CPU测试通过，Ruff、compileall和隔离安装wheel验证通过，项目外执行JSON逐字匹配源码。独立复核发现外层autocast可使低精度attention绕过float32中间计算并产生NaN，已修复并加入回归；独立7项复核已通过，不重复累计为额外52项。float64参考前向最大误差6.66e-16、梯度误差4.44e-16。
+52项CPU测试通过，Ruff、compileall和隔离安装wheel验证通过，项目外执行JSON逐字匹配源码。独立复核发现外层autocast可使低精度attention绕过float32中间计算并产生NaN，已修复并加入回归；独立7项复核已通过；上报的最终测试总数为52项，不另将复核运行累计为新增测试。float64参考前向最大误差6.66e-16、梯度误差4.44e-16。
 
 2343参数合成smoke运行10步，loss从2.055674降至1.465322，只证明前向／反向／更新连接，不是论文复现、语言理解或真实任务效果。尚无完整encoder-decoder训练或WMT／BLEU结果。全遮罩行、padding及布尔mask语义均明确限定，未宣称CUDA AMP已验证。
 
