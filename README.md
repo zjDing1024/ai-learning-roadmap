@@ -1,5 +1,9 @@
 # AI Learning Roadmap
 
+## 2026-11-14：冻结双语证据评测与位置编码对照
+
+RAG 在同语料下测试 24 道冻结题：可答命中 8/8、缺失返回 0/8、相关但不足仍返回 8/8。不能把词汇覆盖当证据充分。小型 Transformer 完成 3 种子配对训练和新文档留出；本地生成也已真实运行，但严格合同 0/3。见[完整日报](daily-learning/2026-11-14/README.md)。
+
 ## 2026-11-13：真实文本训练与检索服务
 
 - [Transformer](https://github.com/zjDing1024/transformer-from-scratch)已接入真实Flask文档byte语言模型：99,968参数、600步、文档分离评估与train-only bigram对照；测试byte PPL为11.236，但生成仍不连贯，不是可用LLM。
@@ -17,7 +21,7 @@
 
 ## 历史学习与工程记录
 
-[当前工程项目](https://github.com/zjDing1024/pytorch-from-zero) · [最新工程与验证记录](daily-learning/2026-11-13/README.md) · [实验索引](experiments/README.md)
+[当前工程项目](https://github.com/zjDing1024/pytorch-from-zero) · [最新工程与验证记录](daily-learning/2026-11-14/README.md) · [实验索引](experiments/README.md)
 
 ## 2026-11-10 最新进展：批量推理与端到端成本
 
