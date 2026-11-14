@@ -1,5 +1,9 @@
 # AI Learning Roadmap
 
+## 2026-11-15：本地 RAG 端到端原型与外部文档检验
+
+RAG 已跑通检索到本地模型，但有效格式不等于证据支持；SQLite 外部评分重用同一组模型状态，显式位置收益变小。[完整日报](daily-learning/2026-11-15/README.md)。
+
 ## 2026-11-14：冻结双语证据评测与位置编码对照
 
 RAG 在同语料下测试 24 道冻结题：可答命中 8/8、缺失返回 0/8、相关但不足仍返回 8/8。不能把词汇覆盖当证据充分。小型 Transformer 完成 3 种子配对训练和新文档留出；本地生成也已真实运行，但严格合同 0/3。见[完整日报](daily-learning/2026-11-14/README.md)。
@@ -21,7 +25,7 @@ RAG 在同语料下测试 24 道冻结题：可答命中 8/8、缺失返回 0/8�
 
 ## 历史学习与工程记录
 
-[当前工程项目](https://github.com/zjDing1024/pytorch-from-zero) · [最新工程与验证记录](daily-learning/2026-11-14/README.md) · [实验索引](experiments/README.md)
+[当前工程项目](https://github.com/zjDing1024/pytorch-from-zero) · [最新工程与验证记录](daily-learning/2026-11-15/README.md) · [实验索引](experiments/README.md)
 
 ## 2026-11-10 最新进展：批量推理与端到端成本
 
@@ -164,11 +168,13 @@ RAG 在同语料下测试 24 道冻结题：可答命中 8/8、缺失返回 0/8�
 
 | 项目 | 当前内容 | 验证边界 |
 |---|---|---|
-| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | CPU-first PyTorch 实验工程：训练与状态恢复、Wine 评估、可重载模型产物、逐项错误隔离的批量推理及端到端成本计量 | 当前实现见默认分支；精确提交、测试与 CI 见[最新日报](daily-learning/2026-11-10/README.md)。工程证据不代表学习者已独立掌握 |
+| [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | CPU 训练、验证、模型导出及独立进程推理 | [可运行主路径](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/docs/project-path.md)，不含 GPU／分布式验证 |
+| [transformer-from-scratch](https://github.com/zjDing1024/transformer-from-scratch) | 原创 Transformer 部件、小型因果字节语言模型与固定预算对照 | [真实文本与位置编码实验](https://github.com/zjDing1024/transformer-from-scratch/blob/8d28a61ae8fb5407bd1c54e35b636c6d248d90aa/docs/position-study.md)，不等于完整论文复现或可用 LLM |
+| [production-rag-system](https://github.com/zjDing1024/production-rag-system) | 文档索引、BM25、可调用检索、可选本地引用生成与双语评测 | [双语检索](https://github.com/zjDing1024/production-rag-system/blob/8270451dc3ecbd39af859e1796dbb2abb5693a7a/docs/bilingual-challenge-report.md) · [本地端到端实测](https://github.com/zjDing1024/production-rag-system/blob/8f6f9ba459ab3460529e67ca31ce0eee8d8e532d/experiments/bilingual-generation-v1/REPORT.md)，不是生产部署 |
 
 项目入口跟随默认分支。[2026-10-26 README 快照](https://github.com/zjDing1024/pytorch-from-zero/blob/c57de064e929bd388261e0514dd93015d10d8256/README.md)保留为四批成果发布时的历史证据；各次实验的固定提交、CI 和 strict / 8-ULP 负结果仍按原日期查阅。
 
-成长仓库保存路线、研究与总结；能独立运行、有完整结构或可持续扩展的项目放入独立仓库。后续候选包括模型实现、论文复现、RAG 和 Agent 系统，达到阶段门槛后再创建。
+成长仓库保存路线、研究与总结；能独立运行、有完整结构或可持续扩展的项目放入独立仓库。后续候选包括新的模型与论文复现，以及受限 Agent。达到可运行和可验证的里程碑再创建，不为仓库数量拆分同类实验。
 
 ## 2026-10-08 至 2026-10-12 历史工程进度
 
