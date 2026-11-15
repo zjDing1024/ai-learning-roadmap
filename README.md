@@ -1,5 +1,19 @@
 # AI Learning Roadmap
 
+## 工程项目
+
+这里记录学习路线、源码研究和实验决策。各独立仓库提供运行方式；下表的证据均链接到固定提交，可以先看结果，再决定是否复跑。
+
+| 项目 | 最短运行路径 | 不安装即可审阅的证据 |
+| --- | --- | --- |
+| [PyTorch：训练到推理交付](https://github.com/zjDing1024/pytorch-from-zero) | [CPU 快速开始](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/README.md#快速开始)：`python -m pytorch_lab.wine_pipeline_cli --output runs/quickstart.json` | [端到端记录](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/results/2026-11-12-project-path.json)：36/36 验证行出结果，独立进程类别和 logits 一致；不是测试集准确率。 |
+| [Transformer：机制实现与真实文本训练](https://github.com/zjDing1024/transformer-from-scratch) | [机制演示](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/README.md#快速运行)：`python examples/verify_mechanisms.py --output results/local.json`，不下载语料，不重跑训练 | [SQLite 外部评分](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/results/sqlite-transfer-v1/report.json)：另有[相同历史长度对照](https://github.com/zjDing1024/transformer-from-scratch/blob/1f88bdb9eb83f3939611f0b37af8ab2dfa6192f2/results/sqlite-format-v1/report.json)：六组真实模型、逐文档 NLL 和 bigram 参考。另见[复现说明](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/docs/sqlite-transfer.md)。 |
+| [文档 RAG：检索、引用与拒答](https://github.com/zjDing1024/production-rag-system) | [本地检索](https://github.com/zjDing1024/production-rag-system/blob/2bd1a005d39a9141d94b0132481394f1c1998c09/README.md)不需要模型；[记录审计](https://github.com/zjDing1024/production-rag-system/blob/2bd1a005d39a9141d94b0132481394f1c1998c09/experiments/evidence-sufficiency-v1/README.md)重放已保存输出，不生成新答案 | [门控对照](https://github.com/zjDing1024/production-rag-system/blob/2bd1a005d39a9141d94b0132481394f1c1998c09/experiments/evidence-sufficiency-v1/summary.json)：当前小模型门控未通过真实评测，保持关闭。 |
+
+## 2026-11-16：证据门验收与等长上下文对照
+
+RAG 新门在真实评测中把有候选题全部拦为协议错误，并未验证正确拒答；Transformer 对源对齐目标使用相同长度历史，保留小模型输给 bigram 的对照结果。[完整日报](daily-learning/2026-11-16/README.md)。
+
 ## 2026-11-15：本地 RAG 端到端原型与外部文档检验
 
 RAG 已跑通检索到本地模型，但有效格式不等于证据支持；SQLite 外部评分重用同一组模型状态，显式位置收益变小。[完整日报](daily-learning/2026-11-15/README.md)。
@@ -25,7 +39,7 @@ RAG 在同语料下测试 24 道冻结题：可答命中 8/8、缺失返回 0/8�
 
 ## 历史学习与工程记录
 
-[当前工程项目](https://github.com/zjDing1024/pytorch-from-zero) · [最新工程与验证记录](daily-learning/2026-11-15/README.md) · [实验索引](experiments/README.md)
+[工程项目](#工程项目) · [最新工程与验证记录](daily-learning/2026-11-16/README.md) · [实验索引](experiments/README.md)
 
 ## 2026-11-10 最新进展：批量推理与端到端成本
 
@@ -164,9 +178,11 @@ RAG 在同语料下测试 24 道冻结题：可答命中 8/8、缺失返回 0/8�
 - [实验索引](experiments/README.md)
 - [论文阅读规范](papers/README.md)
 
-## 独立项目
+## 独立项目的阶段记录
 
-| 项目 | 当前内容 | 验证边界 |
+本节保留早期阶段证据；运行入口和最新结果见[工程项目](#工程项目)。
+
+| 项目 | 这一阶段的内容 | 验证边界 |
 |---|---|---|
 | [pytorch-from-zero](https://github.com/zjDing1024/pytorch-from-zero) | CPU 训练、验证、模型导出及独立进程推理 | [可运行主路径](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/docs/project-path.md)，不含 GPU／分布式验证 |
 | [transformer-from-scratch](https://github.com/zjDing1024/transformer-from-scratch) | 原创 Transformer 部件、小型因果字节语言模型与固定预算对照 | [真实文本与位置编码实验](https://github.com/zjDing1024/transformer-from-scratch/blob/8d28a61ae8fb5407bd1c54e35b636c6d248d90aa/docs/position-study.md)，不等于完整论文复现或可用 LLM |
