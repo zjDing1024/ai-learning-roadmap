@@ -7,8 +7,12 @@
 | 项目 | 最短运行路径 | 不安装即可审阅的证据 |
 | --- | --- | --- |
 | [PyTorch：训练到推理交付](https://github.com/zjDing1024/pytorch-from-zero) | [CPU 快速开始](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/README.md#快速开始)：`python -m pytorch_lab.wine_pipeline_cli --output runs/quickstart.json` | [端到端记录](https://github.com/zjDing1024/pytorch-from-zero/blob/d81080d81c2ffdf6db7e699c6903ccd5e142f538/results/2026-11-12-project-path.json)：36/36 验证行出结果，独立进程类别和 logits 一致；不是测试集准确率。 |
-| [Transformer：机制实现与真实文本训练](https://github.com/zjDing1024/transformer-from-scratch) | [机制演示](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/README.md#快速运行)：`python examples/verify_mechanisms.py --output results/local.json`，不下载语料，不重跑训练 | [SQLite 外部评分](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/results/sqlite-transfer-v1/report.json)：另有[相同历史长度对照](https://github.com/zjDing1024/transformer-from-scratch/blob/1f88bdb9eb83f3939611f0b37af8ab2dfa6192f2/results/sqlite-format-v1/report.json)：六组真实模型、逐文档 NLL 和 bigram 参考。另见[复现说明](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/docs/sqlite-transfer.md)。 |
-| [文档 RAG：检索、引用与拒答](https://github.com/zjDing1024/production-rag-system) | [本地检索](https://github.com/zjDing1024/production-rag-system/blob/2bd1a005d39a9141d94b0132481394f1c1998c09/README.md)不需要模型；[记录审计](https://github.com/zjDing1024/production-rag-system/blob/2bd1a005d39a9141d94b0132481394f1c1998c09/experiments/evidence-sufficiency-v1/README.md)重放已保存输出，不生成新答案 | [门控对照](https://github.com/zjDing1024/production-rag-system/blob/2bd1a005d39a9141d94b0132481394f1c1998c09/experiments/evidence-sufficiency-v1/summary.json)：当前小模型门控未通过真实评测，保持关闭。 |
+| [Transformer：机制实现与真实文本训练](https://github.com/zjDing1024/transformer-from-scratch) | [机制演示](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/README.md#快速运行)：`python examples/verify_mechanisms.py --output results/local.json`，不下载语料，不重跑训练；[有界缓存推理](https://github.com/zjDing1024/transformer-from-scratch/blob/1d7a4d4f2e085c1f0abc447e3f063590f6c23c71/docs/cached-inference.md#run-and-reproduce) | [KV cache 正确性](https://github.com/zjDing1024/transformer-from-scratch/blob/1d7a4d4f2e085c1f0abc447e3f063590f6c23c71/results/inference-v1/report.json)：32 个贪心字节与完整前缀一致。另见[SQLite 全文外部评分](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/results/sqlite-transfer-v1/report.json)（[全文评分复现](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/docs/sqlite-transfer.md)）；[等长历史对照](https://github.com/zjDing1024/transformer-from-scratch/blob/1f88bdb9eb83f3939611f0b37af8ab2dfa6192f2/results/sqlite-format-v1/report.json)（[对照复现](https://github.com/zjDing1024/transformer-from-scratch/blob/1f88bdb9eb83f3939611f0b37af8ab2dfa6192f2/docs/sqlite-format-control.md#reproduce-and-audit)）。 |
+| [文档 RAG：检索、引用与拒答](https://github.com/zjDing1024/production-rag-system) | [本地检索](https://github.com/zjDing1024/production-rag-system/blob/7a74ca741ae1e813ec52e95329ba697c7aaa0aa7/README.md)无需模型；[记录审计](https://github.com/zjDing1024/production-rag-system/blob/7a74ca741ae1e813ec52e95329ba697c7aaa0aa7/experiments/numbered-spans-v1/README.md)复算已保存输出 | [编号对照](https://github.com/zjDing1024/production-rag-system/blob/7a74ca741ae1e813ec52e95329ba697c7aaa0aa7/experiments/numbered-spans-v1/summary.json)：判别合同 0/16 → 16/16，最终正确有据回答仍为 0/8；不启用。 |
+
+## 2026-11-17：编号证据与增量推理
+
+RAG 固定证据做协议对照，编号解决复写错误，但未交付正确、有据回答。Transformer 新增有界 CPU KV cache，对原恢复检查点逐步校验。见[完整日报](daily-learning/2026-11-17/README.md)。
 
 ## 2026-11-16：证据门验收与等长上下文对照
 
@@ -39,7 +43,7 @@ RAG 在同语料下测试 24 道冻结题：可答命中 8/8、缺失返回 0/8�
 
 ## 历史学习与工程记录
 
-[工程项目](#工程项目) · [最新工程与验证记录](daily-learning/2026-11-16/README.md) · [实验索引](experiments/README.md)
+[工程项目](#工程项目) · [最新工程与验证记录](daily-learning/2026-11-17/README.md) · [实验索引](experiments/README.md)
 
 ## 2026-11-10 最新进展：批量推理与端到端成本
 
