@@ -1,0 +1,22 @@
+{
+  "node": "v24.22.3",
+  "packageLockSha256": "3d59ecb913928c3edaa830f14263195699aa5d749592be29974a066ebc3c5096",
+  "cases": [
+    {
+      "version": "4.21.2",
+      "defaultBefore": "extended",
+      "overridden": "simple",
+      "otherInstanceAfterOverride": "extended",
+      "freshInstanceAfterOverride": "extended",
+      "applicationSourceSha256": "5901b32f609ba349351bf7406dbdc0c4c57b77ce6f7215ea67ccca5ac2a28e88"
+    },
+    {
+      "version": "5.1.0",
+      "defaultBefore": "simple",
+      "overridden": "extended",
+      "otherInstanceAfterOverride": "simple",
+      "freshInstanceAfterOverride": "simple",
+      "applicationSourceSha256": "f907fbf24306e0a5ed9d526c7804903d556b51e91c295e6ec65842a8343c9644"
+    }
+  ]
+}

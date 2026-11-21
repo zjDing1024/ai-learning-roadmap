@@ -1,3 +1,6 @@
 __pycache__/
 .venv/
 .DS_Store
+
+# Local npm dependencies for reproducible runtime probes.
+node_modules/

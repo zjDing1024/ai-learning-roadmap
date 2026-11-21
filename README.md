@@ -10,6 +10,10 @@
 | [Transformer：机制实现与真实文本训练](https://github.com/zjDing1024/transformer-from-scratch) | [机制演示](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/README.md#快速运行)：`python examples/verify_mechanisms.py --output results/local.json`，不下载语料，不重跑训练；[固定权重 CPU 检查](https://github.com/zjDing1024/transformer-from-scratch/blob/8f538be45034eb4696c89973937ef1d16a1db178/docs/portable-cpu-check.md)；[分配归因](https://github.com/zjDing1024/transformer-from-scratch/blob/70c942b57a155529bc31931cc8cd776848d122d6/docs/operator-allocation.md)；[有界缓存推理](https://github.com/zjDing1024/transformer-from-scratch/blob/1d7a4d4f2e085c1f0abc447e3f063590f6c23c71/docs/cached-inference.md#run-and-reproduce) | [KV cache 正确性](https://github.com/zjDing1024/transformer-from-scratch/blob/1d7a4d4f2e085c1f0abc447e3f063590f6c23c71/results/inference-v1/report.json)：32 个贪心字节与完整前缀一致；[同语义 CPU 基准](https://github.com/zjDing1024/transformer-from-scratch/blob/518d9fc09d64e19f37cf245e82574abb5521113f/docs/cpu-kv-benchmark.md)记录三组完整请求及内存限制。另见[SQLite 全文外部评分](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/results/sqlite-transfer-v1/report.json)（[全文评分复现](https://github.com/zjDing1024/transformer-from-scratch/blob/d4f0a3e425cf7d9d56bada1cdd8a15d1b522f568/docs/sqlite-transfer.md)）；[等长历史对照](https://github.com/zjDing1024/transformer-from-scratch/blob/1f88bdb9eb83f3939611f0b37af8ab2dfa6192f2/results/sqlite-format-v1/report.json)（[对照复现](https://github.com/zjDing1024/transformer-from-scratch/blob/1f88bdb9eb83f3939611f0b37af8ab2dfa6192f2/docs/sqlite-format-control.md#reproduce-and-audit)）。 |
 | [文档 RAG：检索、引用与拒答](https://github.com/zjDing1024/production-rag-system) | [本地检索](https://github.com/zjDing1024/production-rag-system/blob/68464ade084abe7251a6af4cc17ebf28f6700466/README.md)无需模型；[作用域过滤](https://github.com/zjDing1024/production-rag-system/blob/a275881a1953e94ea7a85a6fc30b738db751f8ef/experiments/typed-scope-v1/README.md)；[索引作用域预检](https://github.com/zjDing1024/production-rag-system/blob/b27f4c1a42313362f194d532282662ba18c77079/docs/indexed-scope-pipeline.md)；[记录审计](https://github.com/zjDing1024/production-rag-system/blob/68464ade084abe7251a6af4cc17ebf28f6700466/experiments/matched-evidence-v1/README.md)复算已保存输出 | [同题换证据](https://github.com/zjDing1024/production-rag-system/blob/68464ade084abe7251a6af4cc17ebf28f6700466/experiments/matched-evidence-v1/REPORT.md)：分支格式全通过，8 组中仅 2 组两条件均处理正确；不启用。 |
 
+## 2026-11-22：拦住错版本的 RAG 请求，实测预分配缓存
+
+Express 双版本运行时确认默认值不同；RAG 版本核对拦住两条真实模型对照中的错误路径。Transformer 同输出 CPU 配对未显示预分配的中位延迟收益，保持动态默认。详见[完整日报](daily-learning/2026-11-22/README.md)。
+
 ## 2026-11-21：两组真实来源的 RAG 评测与预分配 KV 缓存
 
 用 CPython 与 Express 分开核对真实回答是否正确、引用是否支持；Transformer 新增可选固定容量缓存，验证失败重试与张量预留开销。详见[完整日报](daily-learning/2026-11-21/README.md)。
@@ -59,7 +63,7 @@ RAG 在同语料下测试 24 道冻结题：可答命中 8/8、缺失返回 0/8�
 
 ## 历史学习与工程记录
 
-[工程项目](#工程项目) · [最新工程与验证记录](daily-learning/2026-11-21/README.md) · [实验索引](experiments/README.md)
+[工程项目](#工程项目) · [最新工程与验证记录](daily-learning/2026-11-22/README.md) · [实验索引](experiments/README.md)
 
 ## 2026-11-10 最新进展：批量推理与端到端成本
 
