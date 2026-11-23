@@ -1,5 +1,13 @@
 # 实验索引
 
+## 2026-11-24：SQLite 同值错证据与便携推理
+
+[SQLite 离线对照](https://github.com/zjDing1024/production-rag-system/blob/66079c90d0513845181143e6730fb69effb63dd8/experiments/sqlite-attribution-v1/README.md)将两条同值错证据从真实检索打包变为排名前拦截，保留正例与无匹配情形，模型调用为零。[当日记录](../daily-learning/2026-11-24/README.md)另补录此前固定权重的 UTF-8／原始十六进制入口，无新训练或性能比较。
+
+## 2026-11-23：Cargo resolver 证据范围与 UTF-8 边界
+
+[补录日报](../daily-learning/2026-11-23/README.md)关联两项实做：[离线 Cargo 审计](https://github.com/zjDing1024/production-rag-system/blob/d28bce80b6bfb58e678a6a4fd78550b14d3462bc/experiments/cargo-resolver-v1/README.md)含四条支持与两条不足；[Transformer UTF-8 记录](https://github.com/zjDing1024/transformer-from-scratch/blob/7082d423786863a3744e40e775c988d813a544e1/results/utf8-v1/report.json)核对 3 字节前缀加 1 字节和边界拒绝。公开提交的实际时间保留在报告中。
+
 ## 2026-11-22：版本交叉、安装包真值与两种 KV 缓存
 
 [Express 探针和原始输出](2026-11-22-express-runtime/README.md)区分构造与实例设置；[日报](../daily-learning/2026-11-22/README.md)关联 RAG 请求错配的实际调用和 Transformer 同输出、无 profiler 的配对时间记录。
