@@ -1,5 +1,9 @@
 # 实验索引
 
+## 2026-11-25：只读证据工作流
+
+[真实 CLI 离线重放](https://github.com/zjDing1024/production-rag-system/blob/288c6777c2db93824092daca72d770b5ea8209a8/experiments/read-only-agent-v1/README.md)十个场景得到 3 条带引用的值、7 次明确停止，9 次检索尝试中 6 次实际排名，每请求至多两次尝试，模型调用为零。[日报](../daily-learning/2026-11-25/README.md)区分工具预算、引用校验与未测试的通用问答。
+
 ## 2026-11-24：SQLite 同值错证据与便携推理
 
 [SQLite 离线对照](https://github.com/zjDing1024/production-rag-system/blob/66079c90d0513845181143e6730fb69effb63dd8/experiments/sqlite-attribution-v1/README.md)将两条同值错证据从真实检索打包变为排名前拦截，保留正例与无匹配情形，模型调用为零。[当日记录](../daily-learning/2026-11-24/README.md)另补录此前固定权重的 UTF-8／原始十六进制入口，无新训练或性能比较。
