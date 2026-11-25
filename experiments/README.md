@@ -1,5 +1,9 @@
 # 实验索引
 
+## 2026-11-26：PostgreSQL 默认值的跨版本引用
+
+[离线重放](https://github.com/zjDing1024/production-rag-system/blob/cfff0d1ecd7800c15c533a53bcdf2e60b10009c5/experiments/postgres-agent-transfer-v1/README.md)：两条同值正例须各自引用精确设置；三个无目标证据的对照均未进入排名。另用不限制范围的 BM25 核对词法压力，0 次模型调用。见[当日日报](../daily-learning/2026-11-26/README.md)。
+
 ## 2026-11-25：只读证据工作流
 
 [真实 CLI 离线重放](https://github.com/zjDing1024/production-rag-system/blob/288c6777c2db93824092daca72d770b5ea8209a8/experiments/read-only-agent-v1/README.md)十个场景得到 3 条带引用的值、7 次明确停止，9 次检索尝试中 6 次实际排名，每请求至多两次尝试，模型调用为零。[日报](../daily-learning/2026-11-25/README.md)区分工具预算、引用校验与未测试的通用问答。
