@@ -1,5 +1,9 @@
 # 实验索引
 
+## 2026-11-27：PostgreSQL 本机模型的证据范围对照
+
+[实跑与原始记录](https://github.com/zjDing1024/production-rag-system/blob/89c1b3ac0926df69f1bc1970dd77ada4ed3acd65/experiments/postgres-agent-transfer-v1/README.md)：固定五个请求比较 top-1 范围检查。七次真实生成，三条缺证据请求在无范围检查时误入回答分支，有范围检查时均在模型前停止。正例区分严格格式和事实复核。见[当日日报](../daily-learning/2026-11-27/README.md)。
+
 ## 2026-11-26：PostgreSQL 默认值的跨版本引用
 
 [离线重放](https://github.com/zjDing1024/production-rag-system/blob/cfff0d1ecd7800c15c533a53bcdf2e60b10009c5/experiments/postgres-agent-transfer-v1/README.md)：两条同值正例须各自引用精确设置；三个无目标证据的对照均未进入排名。另用不限制范围的 BM25 核对词法压力，0 次模型调用。见[当日日报](../daily-learning/2026-11-26/README.md)。
