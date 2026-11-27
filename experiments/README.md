@@ -1,5 +1,9 @@
 # 实验索引
 
+## 2026-11-28：CPython 数值与引用分开验证
+
+[CPython 证据与复跑](https://github.com/zjDing1024/production-rag-system/blob/fd47504748f894e1a08f05c9c4910f3a96ebce92/experiments/cpython-timeout-provenance-v1/README.md)：三个已审阅整数和独立出处、两条预检停止、三个真实 CPU 回答；数值与来源核对通过，冻结单位格式未通过。保留旧 PostgreSQL 收据和评分。见[当日日报](../daily-learning/2026-11-28/README.md)。
+
 ## 2026-11-27：PostgreSQL 本机模型的证据范围对照
 
 [实跑与原始记录](https://github.com/zjDing1024/production-rag-system/blob/89c1b3ac0926df69f1bc1970dd77ada4ed3acd65/experiments/postgres-agent-transfer-v1/README.md)：固定五个请求比较 top-1 范围检查。七次真实生成，三条缺证据请求在无范围检查时误入回答分支，有范围检查时均在模型前停止。正例区分严格格式和事实复核。见[当日日报](../daily-learning/2026-11-27/README.md)。
