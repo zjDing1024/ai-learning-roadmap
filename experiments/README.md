@@ -1,5 +1,9 @@
 # 实验索引
 
+## 2026-11-29：libcurl 结构化单位与重复引用
+
+[无下载复跑](https://github.com/zjDing1024/production-rag-system/blob/edc6b0657932360f29a126ee5b8265ada03e0a69/experiments/libcurl-typed-units-v1/README.md)：`python -B experiments/libcurl-typed-units-v1/live.py --check`。libcurl 五题配对实际生成十次：文本 0/5 全通过，分字段 3/5；分字段原始数字与单位均正确，但两条因重复引用被拒。两个删证据对照均在排名前停止，未调用模型。见[当日日报](../daily-learning/2026-11-29/README.md)。
+
 ## 2026-11-28：CPython 数值与引用分开验证
 
 [CPython 证据与复跑](https://github.com/zjDing1024/production-rag-system/blob/fd47504748f894e1a08f05c9c4910f3a96ebce92/experiments/cpython-timeout-provenance-v1/README.md)：三个已审阅整数和独立出处、两条预检停止、三个真实 CPU 回答；数值与来源核对通过，冻结单位格式未通过。保留旧 PostgreSQL 收据和评分。见[当日日报](../daily-learning/2026-11-28/README.md)。
